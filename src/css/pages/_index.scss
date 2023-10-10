@@ -1,0 +1,26 @@
+@charset 'UTF-8';
+
+
+@import 'registration';
+@import 'testing';
+@import 'finish';
+
+.index {
+  background: #dae9ff;
+  min-height: 100%;
+  &-logo {
+    &__government {
+      height: 60px;
+    }
+    &__invest {
+      height: 45px;
+    }
+    &__finicum {
+      height: 55px;
+    }
+
+  }
+  &-img {
+    width: 100%;
+  }
+}

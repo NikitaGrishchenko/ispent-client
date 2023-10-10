@@ -1,0 +1,11 @@
+@charset 'UTF-8';
+
+.question {
+  padding: 15px;
+  margin-bottom: 10px;
+  &-text {
+    margin: 15px 0;
+    font-size: 20px;
+  }
+
+}
