@@ -1,34 +1,54 @@
 <template>
-  <q-page class="row items-center justify-evenly"> 1 </q-page>
+  <q-page class="login flex justify-center items-center">
+    <q-form class="login-form" @submit="onSubmit">
+      <q-input
+        filled
+        v-model="username"
+        label="E-mail"
+        type="email"
+        lazy-rules
+        :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+      />
+
+      <q-input
+        filled
+        v-model="password"
+        type="password"
+        label="Password"
+        lazy-rules
+        :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+      />
+      <q-btn
+        :loading="loadingBtn"
+        class="full-width"
+        label="Submit"
+        type="submit"
+        color="primary"
+      />
+    </q-form>
+  </q-page>
 </template>
 
 <script setup lang="ts">
-import { Todo, Meta } from 'components/models';
+import { useQuasar } from 'quasar';
 import { ref } from 'vue';
+import { useAuth } from 'src/composables/useAuth';
 
-const todos = ref<Todo[]>([
-  {
-    id: 1,
-    content: 'ct1',
-  },
-  {
-    id: 2,
-    content: 'ct2',
-  },
-  {
-    id: 3,
-    content: 'ct3',
-  },
-  {
-    id: 4,
-    content: 'ct4',
-  },
-  {
-    id: 5,
-    content: 'ct5',
-  },
-]);
-const meta = ref<Meta>({
-  totalCount: 1200,
-});
+const $q = useQuasar();
+
+const username = ref<string>('');
+const password = ref<string>('');
+const loadingBtn = ref<boolean>(false);
+
+const { userLogin } = useAuth();
+
+const onSubmit = async () => {
+  loadingBtn.value = true;
+  try {
+    await userLogin(username.value, password.value);
+  } catch (error) {
+  } finally {
+    loadingBtn.value = false;
+  }
+};
 </script>
