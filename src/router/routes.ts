@@ -3,6 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    meta: { middleware: ['auth'] },
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
@@ -14,6 +15,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
+    meta: { middleware: ['login'] },
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
