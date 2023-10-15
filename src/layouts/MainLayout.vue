@@ -12,7 +12,13 @@
         />
 
         <q-toolbar-title> ispent </q-toolbar-title>
-        <q-btn flat icon="logout" label="Logout" @click="userLogout()" />
+        <q-btn
+          v-if="authStore.isAuth"
+          flat
+          icon="logout"
+          label="Logout"
+          @click="authStore.userLogout()"
+        />
       </q-toolbar>
     </q-header>
 
@@ -24,9 +30,9 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useAuth } from 'src/composables/useAuth';
+import { useAuthStore } from 'src/stores/auth';
 
-const { userLogout } = useAuth();
+const authStore = useAuthStore();
 
 const leftDrawerOpen = ref(false);
 

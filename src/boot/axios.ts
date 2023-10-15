@@ -17,7 +17,7 @@ declare module '@vue/runtime-core' {
 const api = axios.create({
   baseURL: process.env.DEV ? 'http://127.0.0.1:8000/' : 'https://ispent.ru/',
   withCredentials: true,
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 });
 
 export default boot(({ app }) => {

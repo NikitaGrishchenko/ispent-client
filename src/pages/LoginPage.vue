@@ -32,7 +32,9 @@
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
 import { ref } from 'vue';
-import { useAuth } from 'src/composables/useAuth';
+import { useAuthStore } from 'src/stores/auth';
+
+const authStore = useAuthStore();
 
 const $q = useQuasar();
 
@@ -40,12 +42,12 @@ const username = ref<string>('');
 const password = ref<string>('');
 const loadingBtn = ref<boolean>(false);
 
-const { userLogin } = useAuth();
+// const { userLogin } = useAuth();
 
 const onSubmit = async () => {
   loadingBtn.value = true;
   try {
-    await userLogin(username.value, password.value);
+    await authStore.userLogin(username.value, password.value);
   } catch (error) {
   } finally {
     loadingBtn.value = false;

@@ -8,6 +8,9 @@ import {
 import routes from './routes';
 import { Cookies } from 'quasar';
 import jwt_decode from 'jwt-decode';
+import { JWTTokenDecode } from 'src/models/auth';
+import { useAuthStore } from 'src/stores/auth';
+
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -17,7 +20,7 @@ import jwt_decode from 'jwt-decode';
  * with the Router instance.
  */
 
-export default route(function (/* { store, ssrContext } */) {
+export default route(function () {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : process.env.VUE_ROUTER_MODE === 'history'
@@ -35,11 +38,22 @@ export default route(function (/* { store, ssrContext } */) {
   });
 
   Router.beforeEach(async (to, from) => {
-    console.log(to.fullPath, from.fullPath);
-
-    if (Cookies.has('ispent-jwt') === false && to.path !== '/login') {
-      //   const res = jwt_decode(Cookies.get('ispent-jwt'));
-      Router.push('/login');
+    const authStore = useAuthStore();
+    if (!Cookies.has('ispent-jwt')) {
+      if (to.path !== '/login') {
+        Router.push('/login');
+      }
+    } else {
+      if (!authStore.isAuth) {
+        const token_decode: JWTTokenDecode = jwt_decode(
+          Cookies.get('ispent-jwt')
+        );
+        authStore.isAuth = true;
+        authStore.idUser = token_decode.sub;
+      }
+      if (to.path === '/login') {
+        Router.push('/');
+      }
     }
   });
 
