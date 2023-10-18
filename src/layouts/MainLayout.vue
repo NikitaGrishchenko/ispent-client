@@ -1,16 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
+      <q-toolbar class="container">
         <q-toolbar-title> ispent </q-toolbar-title>
         <q-btn
           v-if="authStore.isAuth"
@@ -29,14 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 
 const authStore = useAuthStore();
-
-const leftDrawerOpen = ref(false);
-
-function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
 </script>
