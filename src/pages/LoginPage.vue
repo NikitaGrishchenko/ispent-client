@@ -20,9 +20,10 @@
       />
       <q-btn
         :loading="loadingBtn"
+        type="submit"
         class="full-width"
         label="Submit"
-        type="submit"
+        unelevated
         color="primary"
       />
     </q-form>

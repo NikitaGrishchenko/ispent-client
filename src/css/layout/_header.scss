@@ -5,3 +5,12 @@
     color: #fff;
   }
 }
+
+body.body--dark {
+  & .q-layout__shadow:after {
+    box-shadow: none;
+  }
+  & .q-layout__section--marginal {
+    background: $dark;
+  }
+}
