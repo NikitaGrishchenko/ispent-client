@@ -1,5 +1,14 @@
 @charset 'UTF-8';
 
-
 @import 'registration';
 @import 'login';
+
+body.body--dark {
+  .login {
+    &-form {
+      background: $dark;
+      width: 550px;
+      padding: 60px 30px;
+    }
+  }
+}

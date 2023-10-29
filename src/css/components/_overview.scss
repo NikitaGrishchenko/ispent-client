@@ -1,0 +1,13 @@
+@charset 'UTF-8';
+
+body.body--dark {
+  .overview {
+    &-card {
+      background: $dark;
+      &__total {
+        font-size: 30px;
+        padding: 5px 16px;
+      }
+    }
+  }
+}

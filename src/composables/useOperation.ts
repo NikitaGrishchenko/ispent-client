@@ -8,7 +8,7 @@ export function useOperation() {
   //   const $q = useQuasar();
 
   const getUserOverview = async () => {
-    const { data } = await api.get<UserOverview[]>('user/overview/');
+    const { data } = await api.get<UserOverview>('user/overview/');
     return data;
   };
 
