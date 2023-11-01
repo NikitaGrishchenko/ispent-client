@@ -31,15 +31,16 @@
 import { useOperation } from 'composables';
 import { ref, onMounted } from 'vue';
 import { UserOverview } from 'models';
+import { useAuthStore } from 'src/stores/auth';
 
 const { getUserOverview } = useOperation();
+const authStore = useAuthStore();
 
-const isLoading = ref<boolean>(false);
 const userOverview = ref<UserOverview>();
 
 onMounted(async () => {
-  isLoading.value = true;
+  authStore.showPreloader = true;
   userOverview.value = await getUserOverview();
-  isLoading.value = false;
+  authStore.showPreloader = false;
 });
 </script>

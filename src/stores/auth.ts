@@ -6,6 +6,7 @@ import type { JWTTokenDecode, AuthState } from 'src/models/auth';
 
 export const useAuthStore = defineStore('authStore', {
   state: (): AuthState => ({
+    showPreloader: false,
     isAuth: false,
     idUser: null,
   }),

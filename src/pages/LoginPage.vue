@@ -19,7 +19,7 @@
         :rules="[(val) => (val && val.length > 0) || 'Please type something']"
       />
       <q-btn
-        :loading="loadingBtn"
+        :loading="authStore.showPreloader"
         type="submit"
         class="full-width"
         label="Submit"
@@ -31,27 +31,21 @@
 </template>
 
 <script setup lang="ts">
-import { useQuasar } from 'quasar';
 import { ref } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 
 const authStore = useAuthStore();
 
-const $q = useQuasar();
-
 const username = ref<string>('');
 const password = ref<string>('');
-const loadingBtn = ref<boolean>(false);
-
-// const { userLogin } = useAuth();
 
 const onSubmit = async () => {
-  loadingBtn.value = true;
+  authStore.showPreloader = true;
   try {
     await authStore.userLogin(username.value, password.value);
   } catch (error) {
   } finally {
-    loadingBtn.value = false;
+    authStore.showPreloader = false;
   }
 };
 </script>
