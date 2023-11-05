@@ -38,7 +38,12 @@
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn
+            flat
+            label="Cancel"
+            v-close-popup
+            @click="emit('reset-state-dialog')"
+          />
           <q-btn flat label="Add address" type="submit" v-close-popup />
         </q-card-actions>
       </q-form>
@@ -56,8 +61,12 @@ const authStore = useAuthStore();
 const { getUserCategory, createUserOperation } = useOperation();
 
 const props = defineProps({
-  isOpen: Boolean,
+  isOpenDialog: Boolean,
 });
+
+const emit = defineEmits<{
+  (e: 'reset-state-dialog'): void;
+}>();
 
 const selectedCategory = ref<UserCategory>();
 const userCategory = ref<UserCategory[]>();
@@ -67,35 +76,35 @@ const kind = ref<string>('');
 const amount = ref<number>();
 const comment = ref<string>('');
 
-const onSubmit = async () => {
-  const data: UserOperation = {
-    userId: authStore.idUser,
-    categoryUserId: selectedCategory.value?.id,
-    amount: Number(amount.value),
-    kind: Number(kind.value),
-    date: Date.now(),
-    comment: comment.value,
-  };
-  console.log(data);
-
-  await createUserOperation(data);
-  //   await authStore.userLogin(username.value, password.value);
+const clearInput = () => {
+  selectedCategory.value = undefined;
+  amount.value = undefined;
+  comment.value = '';
+  kind.value = '';
 };
 
-// const filterFn: QSelectProps['onFilter'] = (val, update, abort) => {
-//   if (val.length < 2) {
-//     abort()
-//     return
-//   }
-//   update(() => {
-//     const query = val.toLowerCase()
-//     options.value = searchList.value?.filter(
-//       v => v.name.toLowerCase().indexOf(query) > -1,
-//     )
-//   })
-// }
+const onSubmit = async () => {
+  try {
+    const data: UserOperation = {
+      userId: authStore.idUser as number,
+      categoryUserId: selectedCategory.value?.id as number,
+      amount: amount.value as number,
+      kind: Number(kind.value),
+      date: Date.now(),
+      comment: comment.value,
+    };
+    console.log(data);
 
-const showDialog = computed(() => props.isOpen);
+    await createUserOperation(data).then(() => {
+      clearInput();
+    });
+  } catch (e) {
+    console.error(e);
+  } finally {
+  }
+};
+
+const showDialog = computed(() => props.isOpenDialog);
 
 watch(kind, (newValue) => {
   filteringUserCategory.value = userCategory.value?.filter(

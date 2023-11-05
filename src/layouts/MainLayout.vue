@@ -15,9 +15,16 @@
 
     <q-page-container>
       <router-view />
-      <DialogCreateOperation :is-open="true" />
+      <DialogCreateOperation
+        :is-open-dialog="isOpenDialog"
+        @reset-state-dialog="resetStateDialog"
+      />
       <AppPreloader :showing="authStore.showPreloader" />
-      <q-page-sticky position="bottom-right" :offset="[18, 18]">
+      <q-page-sticky
+        position="bottom-right"
+        :offset="[18, 18]"
+        @click="resetStateDialog()"
+      >
         <q-btn fab icon="add" color="accent" />
       </q-page-sticky>
     </q-page-container>
@@ -28,6 +35,13 @@
 import { useAuthStore } from 'src/stores/auth';
 import DialogCreateOperation from 'components/DialogCreateOperation.vue';
 import AppPreloader from 'components/AppPreloader.vue';
+import { ref } from 'vue';
+
+const isOpenDialog = ref<boolean>(false);
+
+const resetStateDialog = async () => {
+  isOpenDialog.value = !isOpenDialog.value;
+};
 
 const authStore = useAuthStore();
 </script>

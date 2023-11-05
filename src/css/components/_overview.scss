@@ -2,12 +2,17 @@
 
 body.body--dark {
   .overview {
-    &-card {
+    &__card {
       background: $dark;
-      &__total {
+      &-total {
         font-size: 30px;
         padding: 5px 16px;
       }
+    }
+    &__last-operation {
+      background: $dark;
+      padding: 10px 20px;
+      border-radius: 4px;
     }
   }
 }

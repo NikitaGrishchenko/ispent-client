@@ -1,5 +1,9 @@
 @charset 'UTF-8';
 
+html {
+  font-size: 16px;
+}
+
 .custom-icon {
   svg {
     width: 1em;
@@ -9,6 +13,16 @@
       fill: currentColor !important;
     }
   }
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }
 
 a {
@@ -22,6 +36,8 @@ li {
 
 body {
   margin: 0;
+  font-family: 'Montserrat' !important;
+  font-size: 1.125rem;
 }
 
 .container {

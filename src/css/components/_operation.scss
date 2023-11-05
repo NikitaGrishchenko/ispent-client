@@ -1,0 +1,9 @@
+@charset 'UTF-8';
+
+body.body--dark {
+  .operation {
+    &__date {
+      font-size: 0.75rem;
+    }
+  }
+}

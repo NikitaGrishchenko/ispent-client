@@ -1,9 +1,3 @@
-export interface UserOverview {
-  totalBalance: number;
-  totalIncome: number;
-  totalExpenses: number;
-}
-
 export enum kindOperationEnum {
   INCOME = 1,
   EXPENSE = 2,
@@ -17,10 +11,19 @@ export interface UserCategory {
 }
 
 export interface UserOperation {
+  id?: number;
   userId: number;
   categoryUserId: number;
+  categoryUser?: UserCategory;
   kind: number;
   amount: number;
-  date: Date;
+  date: number;
   comment: string;
+}
+
+export interface UserOverview {
+  totalBalance: number;
+  totalIncome: number;
+  totalExpenses: number;
+  lastOperations: UserOperation[];
 }

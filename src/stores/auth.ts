@@ -46,6 +46,7 @@ export const useAuthStore = defineStore('authStore', {
     clear() {
       this.isAuth = false;
       this.idUser = null;
+      this.router.push({ name: 'LoginPage' });
     },
   },
 });

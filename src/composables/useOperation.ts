@@ -13,7 +13,7 @@ export function useOperation() {
   };
 
   const getUserCategory = async () => {
-    const { data } = await api.get<UserCategory[]>('user/categories/');
+    const { data } = await api.get<UserCategory[]>('operation/categories/');
     return data;
   };
 

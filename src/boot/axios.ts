@@ -1,5 +1,7 @@
 import { boot } from 'quasar/wrappers';
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import { useAuthStore } from 'src/stores/auth';
+import { useRouter } from 'vue-router';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -21,15 +23,22 @@ const api = axios.create({
 });
 
 export default boot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
+  const authStore = useAuthStore();
 
   app.config.globalProperties.$axios = axios;
-  // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
-  //       so you won't necessarily have to import axios in each vue file
-
   app.config.globalProperties.$api = api;
-  // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
-  //       so you can easily perform requests against your app's API
+  api.interceptors.response.use(
+    (response: AxiosResponse) => {
+      return response;
+    },
+    (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        authStore.clear();
+        authStore.showPreloader = false;
+      }
+      return Promise.reject(error);
+    }
+  );
 });
 
 export { api };
