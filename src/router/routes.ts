@@ -25,6 +25,18 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/registration',
+    meta: { middleware: ['not-auth'] },
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'RegistrationPage',
+        component: () => import('pages/RegistrationPage.vue'),
+      },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

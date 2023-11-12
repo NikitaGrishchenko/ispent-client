@@ -26,13 +26,6 @@
         unelevated
         color="primary"
       />
-      <q-btn
-        label="Register"
-        color="primary"
-        class="full-width"
-        flat
-        to="/registration"
-      />
     </q-form>
   </q-page>
 </template>
