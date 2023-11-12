@@ -6,7 +6,7 @@
         <q-btn
           v-if="authStore.isAuth"
           flat
-          icon="fa-solid fa-arrow-right-from-bracket"
+          icon="logout"
           label="Logout"
           @click="authStore.userLogout()"
         />

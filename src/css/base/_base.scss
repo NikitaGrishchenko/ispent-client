@@ -48,6 +48,10 @@ body {
   margin-left: auto;
 }
 
+.q-card--dark {
+  box-shadow: none !important;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 85%;

@@ -11,8 +11,13 @@ export function useOperation() {
     await api.post<UserOperation[]>('operation/create/', data);
   };
 
+  const deleteUserOperation = async (id_operation: number) => {
+    await api.delete<UserOperation[]>(`operation/delete/${id_operation}`);
+  };
+
   return {
     getUserCategories,
     createUserOperation,
+    deleteUserOperation,
   };
 }

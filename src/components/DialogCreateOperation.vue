@@ -4,8 +4,7 @@
       <q-card-section>
         <div class="text-h6">New operation</div>
       </q-card-section>
-      {{ filteringUserCategory }}
-      <q-form class="" @submit="onSubmit">
+      <q-form @submit="onSubmit">
         <q-card-section class="q-pt-none">
           <q-btn-toggle
             v-model="kind"
@@ -29,7 +28,6 @@
             v-model="selectedCategory"
             :options="filteringUserCategory"
             :disable="!kind"
-            dropdown-icon="fa-solid fa-caret-down"
             option-label="name"
             label="Category"
             filled
@@ -45,7 +43,7 @@
             v-close-popup
             @click="emit('reset-state-dialog')"
           />
-          <q-btn flat label="Add address" type="submit" v-close-popup />
+          <q-btn flat label="Add" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -58,10 +56,12 @@ import { useAuthStore } from 'src/stores/auth';
 import { useOperation } from 'composables';
 import { UserCategory, UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
+import { useQuasar } from 'quasar';
 
 const authStore = useAuthStore();
 const operationStore = useOperationStore();
 const { getUserCategories, createUserOperation } = useOperation();
+const $q = useQuasar();
 
 const props = defineProps({
   isOpenDialog: Boolean,
@@ -98,13 +98,19 @@ const onSubmit = async () => {
     };
     console.log(data);
 
-    await createUserOperation(data).then(() => {
+    await createUserOperation(data).then(async () => {
       clearInput();
+      await operationStore.getUserOverview();
+      $q.notify({
+        message: 'Operation added',
+        color: 'positive',
+        position: 'top-right',
+        icon: 'check_circle_outline',
+      });
     });
   } catch (e) {
     console.error(e);
   } finally {
-    await operationStore.getUserOverview();
   }
 };
 

@@ -4,7 +4,7 @@
       <q-card flat class="overview__card">
         <q-card-section> <h6>Balance</h6> </q-card-section>
         <q-card-section class="overview__card-total">
-          {{ operationStore?.userOverview?.totalBalance }}
+          {{ operationStore?.userOverview?.totalBalance }} ₽
         </q-card-section>
       </q-card>
     </div>
@@ -12,7 +12,7 @@
       <q-card flat class="overview__card">
         <q-card-section> <h6>Total income</h6> </q-card-section>
         <q-card-section class="overview__card-total">
-          {{ operationStore?.userOverview?.totalIncome }}
+          {{ operationStore?.userOverview?.totalIncome }} ₽
         </q-card-section>
       </q-card>
     </div>
@@ -20,7 +20,7 @@
       <q-card flat class="overview__card">
         <q-card-section> <h6>Total expenses</h6> </q-card-section>
         <q-card-section class="overview__card-total">
-          {{ operationStore?.userOverview?.totalExpenses }}
+          {{ operationStore?.userOverview?.totalExpenses }} ₽
         </q-card-section>
       </q-card>
     </div>
