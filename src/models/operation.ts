@@ -27,3 +27,7 @@ export interface UserOverview {
   totalExpenses: number;
   lastOperations: UserOperation[];
 }
+
+export interface OperationState {
+  userOverview: UserOverview | undefined;
+}

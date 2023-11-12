@@ -6,7 +6,7 @@
         <q-btn
           v-if="authStore.isAuth"
           flat
-          icon="logout"
+          icon="fa-solid fa-arrow-right-from-bracket"
           label="Logout"
           @click="authStore.userLogout()"
         />
@@ -18,6 +18,7 @@
       <DialogCreateOperation
         :is-open-dialog="isOpenDialog"
         @reset-state-dialog="resetStateDialog"
+        @update-overview-user="resetStateDialog"
       />
       <AppPreloader :showing="authStore.showPreloader" />
       <q-page-sticky

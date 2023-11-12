@@ -29,6 +29,7 @@
             v-model="selectedCategory"
             :options="filteringUserCategory"
             :disable="!kind"
+            dropdown-icon="fa-solid fa-caret-down"
             option-label="name"
             label="Category"
             filled
@@ -56,9 +57,11 @@ import { ref, onMounted, computed, watch } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useOperation } from 'composables';
 import { UserCategory, UserOperation } from 'models';
+import { useOperationStore } from 'src/stores/operation';
 
 const authStore = useAuthStore();
-const { getUserCategory, createUserOperation } = useOperation();
+const operationStore = useOperationStore();
+const { getUserCategories, createUserOperation } = useOperation();
 
 const props = defineProps({
   isOpenDialog: Boolean,
@@ -101,6 +104,7 @@ const onSubmit = async () => {
   } catch (e) {
     console.error(e);
   } finally {
+    await operationStore.getUserOverview();
   }
 };
 
@@ -114,7 +118,7 @@ watch(kind, (newValue) => {
 
 onMounted(async () => {
   authStore.showPreloader = true;
-  userCategory.value = await getUserCategory();
+  userCategory.value = await getUserCategories();
   authStore.showPreloader = false;
 });
 </script>

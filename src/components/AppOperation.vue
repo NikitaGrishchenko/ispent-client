@@ -1,6 +1,6 @@
 <template>
-  <div class="operation flex justify-between items-center q-mb-sm">
-    <div class="flex items-center">
+  <div class="operation row q-mb-sm">
+    <div class="col-6 flex items-center">
       <div class="operation__category-icon q-mr-md">
         <q-icon name="fa-regular fa-heart" size="32px" color="red" />
       </div>
@@ -13,9 +13,20 @@
         </p>
       </div>
     </div>
-    <p class="operation__amount" :class="getColorAmount(operation?.kind)">
-      {{ operation?.amount }} ₽
-    </p>
+    <div class="col-3">
+      <q-icon
+        @click="deleteOperation()"
+        name="fa-regular fa-trash-can"
+        size="20px"
+      />
+      <q-icon name="fa-regular fa-pen-to-square" size="20px" />
+    </div>
+    <div
+      class="col-3 operation__amount text-right"
+      :class="getColorAmount(operation?.kind)"
+    >
+      <p>{{ operation?.amount }} ₽</p>
+    </div>
   </div>
 </template>
 
@@ -34,6 +45,10 @@ const props = defineProps({
 const getColorAmount = (kind: number | undefined) => {
   if (kind === 1) return 'text-positive';
   else return 'text-negative';
+};
+
+const deleteOperation = () => {
+  console.log();
 };
 // const props = defineProps(['operation']);
 // const authStore = useAuthStore();

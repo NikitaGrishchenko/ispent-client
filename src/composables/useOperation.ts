@@ -1,18 +1,8 @@
 import { api } from 'boot/axios';
-// import { useRouter } from 'vue-router';
-// import { useQuasar } from 'quasar';
 import { UserOverview, UserCategory, UserOperation } from 'models';
 
 export function useOperation() {
-  //   const router = useRouter();
-  //   const $q = useQuasar();
-
-  const getUserOverview = async () => {
-    const { data } = await api.get<UserOverview>('user/overview/');
-    return data;
-  };
-
-  const getUserCategory = async () => {
+  const getUserCategories = async () => {
     const { data } = await api.get<UserCategory[]>('operation/categories/');
     return data;
   };
@@ -22,8 +12,7 @@ export function useOperation() {
   };
 
   return {
-    getUserOverview,
-    getUserCategory,
+    getUserCategories,
     createUserOperation,
   };
 }
