@@ -39,8 +39,10 @@ export default route(function () {
 
   Router.beforeEach(async (to, from) => {
     const authStore = useAuthStore();
+    console.log();
+
     if (!Cookies.has('ispent-jwt')) {
-      if (to.path !== '/login') {
+      if (to.meta.middleware === 'auth') {
         Router.push('/login');
       }
     } else {
@@ -51,7 +53,7 @@ export default route(function () {
         authStore.isAuth = true;
         authStore.idUser = token_decode.sub;
       }
-      if (to.path === '/login') {
+      if (to.meta.middleware === 'login') {
         Router.push('/');
       }
     }

@@ -1,6 +1,7 @@
 <template>
   <q-page class="login flex justify-center items-center">
     <q-form class="login-form" @submit="onSubmit">
+      <h5 class="q-mb-md text-center">Registration</h5>
       <q-input
         filled
         v-model="username"

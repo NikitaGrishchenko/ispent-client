@@ -16,7 +16,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     meta: { middleware: ['login'] },
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/EmptyLayout.vue'),
     children: [
       {
         path: '',
@@ -27,8 +27,8 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/registration',
-    meta: { middleware: ['not-auth'] },
-    component: () => import('layouts/MainLayout.vue'),
+    meta: { middleware: ['login'] },
+    component: () => import('layouts/EmptyLayout.vue'),
     children: [
       {
         path: '',
