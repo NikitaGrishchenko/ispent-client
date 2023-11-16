@@ -9,6 +9,7 @@
           <q-btn-toggle
             v-model="kind"
             spread
+            class="q-mb-md no-box-shadow"
             toggle-color="primary"
             :options="[
               { label: 'INCOME', value: '1' },
@@ -32,8 +33,14 @@
             label="Category"
             filled
             input-debounce="0"
+            class="q-field--with-bottom"
           />
-          <q-input filled v-model="comment" label="Comment" />
+          <q-input
+            filled
+            v-model="comment"
+            label="Comment"
+            class="q-field--with-bottom"
+          />
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">

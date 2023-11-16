@@ -4,23 +4,35 @@
       <h5 class="q-mb-md text-center">Registration</h5>
       <q-input
         filled
-        v-model="username"
+        v-model="createUserData.firstName"
+        label="First Name"
+        lazy-rules
+        class="q-field--with-bottom"
+      />
+      <q-input
+        filled
+        v-model="createUserData.lastName"
+        label="First Name"
+        lazy-rules
+        class="q-field--with-bottom"
+      />
+      <q-input
+        filled
+        v-model="createUserData.email"
         label="E-mail"
         type="email"
         lazy-rules
         :rules="[(val) => (val && val.length > 0) || 'Please type something']"
       />
-
       <q-input
         filled
-        v-model="password"
+        v-model="createUserData.password"
         type="password"
         label="Password"
         lazy-rules
         :rules="[(val) => (val && val.length > 0) || 'Please type something']"
       />
       <q-btn
-        :loading="authStore.showPreloader"
         type="submit"
         class="full-width"
         label="Submit"
@@ -33,20 +45,34 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useAuthStore } from 'src/stores/auth';
+import { useAuth } from 'composables';
 
-const authStore = useAuthStore();
+import { UserCreate } from 'models';
 
-const username = ref<string>('');
-const password = ref<string>('');
+const { createUser } = useAuth();
+
+const createUserData = ref<UserCreate>({
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+});
+
+const clear = () => {
+  createUserData.value = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  };
+};
 
 const onSubmit = async () => {
-  authStore.showPreloader = true;
-  try {
-    await authStore.userLogin(username.value, password.value);
-  } catch (error) {
-  } finally {
-    authStore.showPreloader = false;
-  }
+  //   authStore.showPreloader = true;
+  console.log(createUserData.value);
+
+  await createUser(createUserData.value).then(() => {
+    clear();
+  });
 };
 </script>

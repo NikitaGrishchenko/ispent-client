@@ -2,7 +2,9 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="container">
-        <q-toolbar-title class="text-primary"> ispent </q-toolbar-title>
+        <q-toolbar-title class="text-bold text-primary">
+          ispent
+        </q-toolbar-title>
         <q-btn
           v-if="authStore.isAuth"
           flat
@@ -26,7 +28,7 @@
         :offset="[18, 18]"
         @click="resetStateDialog()"
       >
-        <q-btn fab icon="add" color="accent" />
+        <q-btn fab icon="add" color="primary" />
       </q-page-sticky>
     </q-page-container>
   </q-layout>
