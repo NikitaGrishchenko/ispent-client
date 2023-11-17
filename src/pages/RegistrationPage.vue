@@ -12,7 +12,7 @@
       <q-input
         filled
         v-model="createUserData.lastName"
-        label="First Name"
+        label="Last Name"
         lazy-rules
         class="q-field--with-bottom"
       />
@@ -68,9 +68,6 @@ const clear = () => {
 };
 
 const onSubmit = async () => {
-  //   authStore.showPreloader = true;
-  console.log(createUserData.value);
-
   await createUser(createUserData.value).then(() => {
     clear();
   });

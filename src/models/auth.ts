@@ -4,7 +4,6 @@ export interface JWTTokenDecode {
 }
 
 export interface AuthState {
-  showPreloader: boolean;
   isAuth: boolean;
   idUser: number | null;
 }

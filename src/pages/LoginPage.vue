@@ -19,7 +19,7 @@
         :rules="[(val) => (val && val.length > 0) || 'Please type something']"
       />
       <q-btn
-        :loading="authStore.showPreloader"
+        :loading="isLoading"
         type="submit"
         class="full-width"
         label="Submit"
@@ -40,6 +40,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
+import { isLoading } from 'composables';
 
 const authStore = useAuthStore();
 
@@ -47,12 +48,10 @@ const username = ref<string>('');
 const password = ref<string>('');
 
 const onSubmit = async () => {
-  authStore.showPreloader = true;
   try {
     await authStore.userLogin(username.value, password.value);
   } catch (error) {
   } finally {
-    authStore.showPreloader = false;
   }
 };
 </script>

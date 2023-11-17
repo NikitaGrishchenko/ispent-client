@@ -1,7 +1,6 @@
 import { boot } from 'quasar/wrappers';
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { useAuthStore } from 'src/stores/auth';
-import { useRouter } from 'vue-router';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
@@ -34,7 +33,6 @@ export default boot(({ app }) => {
     (error: AxiosError) => {
       if (error.response?.status === 401) {
         authStore.clear();
-        authStore.showPreloader = false;
       }
       return Promise.reject(error);
     }

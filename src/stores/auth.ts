@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia';
-import { api } from 'boot/axios';
 import { Cookies } from 'quasar';
 import jwt_decode from 'jwt-decode';
 import type { JWTTokenDecode, AuthState } from 'src/models/auth';
+import { useApi } from 'composables';
+
+const { api } = useApi();
 
 export const useAuthStore = defineStore('authStore', {
   state: (): AuthState => ({
-    showPreloader: false,
     isAuth: false,
     idUser: null,
   }),
@@ -18,8 +19,15 @@ export const useAuthStore = defineStore('authStore', {
       const data = new URLSearchParams();
       data.append('username', username);
       data.append('password', password);
-      await api
-        .post('auth/login', data)
+
+      await api(
+        {
+          method: 'post',
+          url: 'auth/login',
+          data: data,
+        },
+        false
+      )
         .then(() => {
           const token_decode: JWTTokenDecode = jwt_decode(
             Cookies.get('ispent-jwt')
@@ -33,8 +41,13 @@ export const useAuthStore = defineStore('authStore', {
         });
     },
     async userLogout() {
-      await api
-        .post('auth/logout')
+      await api(
+        {
+          method: 'post',
+          url: 'auth/logout',
+        },
+        true
+      )
         .then(() => {
           this.clear();
           this.router.push({ name: 'LoginPage' });

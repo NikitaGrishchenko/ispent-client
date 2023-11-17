@@ -1,11 +1,18 @@
-import { api } from 'boot/axios';
+import { useApi } from 'composables';
 import { UserCreate } from 'models';
 
-export function useAuth() {
-  const createUser = async (createUserData: UserCreate) => {
-    console.log(createUserData);
+const { api } = useApi();
 
-    await api.post<UserCreate[]>('auth/register/', createUserData);
+export function useAuth() {
+  const createUser = async (data: UserCreate) => {
+    await api<UserCreate[]>(
+      {
+        method: 'post',
+        url: 'auth/register/',
+        data: data,
+      },
+      true
+    );
   };
 
   return {

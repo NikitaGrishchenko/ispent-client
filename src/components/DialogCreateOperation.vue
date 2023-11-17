@@ -10,6 +10,7 @@
             v-model="kind"
             spread
             class="q-mb-md no-box-shadow"
+            @update:model-value="selectedCategory = undefined"
             toggle-color="primary"
             :options="[
               { label: 'INCOME', value: '1' },
@@ -103,7 +104,6 @@ const onSubmit = async () => {
       date: Date.now(),
       comment: comment.value,
     };
-    console.log(data);
 
     await createUserOperation(data).then(async () => {
       clearInput();
@@ -130,8 +130,6 @@ watch(kind, (newValue) => {
 });
 
 onMounted(async () => {
-  authStore.showPreloader = true;
   userCategory.value = await getUserCategories();
-  authStore.showPreloader = false;
 });
 </script>

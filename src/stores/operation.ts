@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia';
-import { api } from 'boot/axios';
 import type { OperationState } from 'src/models/operation';
 import { UserOverview } from 'models';
+import { useApi } from 'composables';
+
+const { api } = useApi();
 
 export const useOperationStore = defineStore('operationStore', {
   state: (): OperationState => ({
@@ -9,7 +11,13 @@ export const useOperationStore = defineStore('operationStore', {
   }),
   actions: {
     async getUserOverview() {
-      const { data } = await api.get<UserOverview>('user/overview/');
+      const data = await api<UserOverview>(
+        {
+          method: 'get',
+          url: 'user/overview/',
+        },
+        true
+      );
       this.userOverview = data;
     },
   },

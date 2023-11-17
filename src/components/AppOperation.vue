@@ -46,9 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref } from 'vue';
 import { useQuasar } from 'quasar';
-import { useAuthStore } from 'src/stores/auth';
 import { useOperation } from 'composables';
 import { UserOperation } from 'models';
 import { type PropType } from 'vue';
@@ -83,7 +82,4 @@ const deleteOperation = async () => {
     });
   });
 };
-// const props = defineProps(['operation']);
-// const authStore = useAuthStore();
-// const { getUserCategory, createUserOperation } = useOperation();
 </script>

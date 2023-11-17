@@ -39,7 +39,6 @@ export default route(function () {
 
   Router.beforeEach(async (to, from) => {
     const authStore = useAuthStore();
-    console.log();
 
     if (!Cookies.has('ispent-jwt')) {
       if (to.meta.middleware === 'auth') {

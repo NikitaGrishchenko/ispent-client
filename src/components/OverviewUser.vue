@@ -49,15 +49,11 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useOperationStore } from 'src/stores/operation';
-import { useAuthStore } from 'src/stores/auth';
 import AppOperation from 'components/AppOperation.vue';
 
 const operationStore = useOperationStore();
-const authStore = useAuthStore();
 
 onMounted(async () => {
-  authStore.showPreloader = true;
   await operationStore.getUserOverview();
-  authStore.showPreloader = false;
 });
 </script>
