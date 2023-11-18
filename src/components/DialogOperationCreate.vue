@@ -13,8 +13,8 @@
             @update:model-value="selectedCategory = undefined"
             toggle-color="primary"
             :options="[
-              { label: 'INCOME', value: '1' },
-              { label: 'EXPENSE', value: '2' },
+              { label: 'INCOME', value: 1 },
+              { label: 'EXPENSE', value: 2 },
             ]"
           />
           <q-input
@@ -79,10 +79,10 @@ const emit = defineEmits<{
   (e: 'reset-state-dialog'): void;
 }>();
 
-const selectedCategory = ref<UserCategory>();
 const userCategory = ref<UserCategory[]>();
 const filteringUserCategory = ref<UserCategory[]>();
 
+const selectedCategory = ref<UserCategory>();
 const kind = ref<string>('');
 const amount = ref<number>();
 const comment = ref<string>('');

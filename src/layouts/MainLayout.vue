@@ -17,7 +17,7 @@
 
     <q-page-container>
       <router-view />
-      <DialogCreateOperation
+      <DialogOperationCreate
         :is-open-dialog="isOpenDialog"
         @reset-state-dialog="resetStateDialog"
         @update-overview-user="resetStateDialog"
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from 'src/stores/auth';
-import DialogCreateOperation from 'components/DialogCreateOperation.vue';
+import DialogOperationCreate from 'components/DialogOperationCreate.vue';
 import { ref } from 'vue';
 
 const isOpenDialog = ref<boolean>(false);

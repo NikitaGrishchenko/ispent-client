@@ -14,8 +14,12 @@
       </div>
     </div>
     <div class="col-3">
-      <q-icon @click="openConfirm = true" name="delete_outline" size="20px" />
-      <q-icon name="edit" size="20px" />
+      <q-icon
+        @click="openDialogDelete = true"
+        name="delete_outline"
+        size="20px"
+      />
+      <q-icon @click="openDialogUpdate = true" name="edit" size="20px" />
     </div>
     <div
       class="col-3 operation__amount text-right"
@@ -24,62 +28,35 @@
       <p>{{ operation?.amount }} ₽</p>
     </div>
   </div>
-  <q-dialog v-model="openConfirm" persistent>
-    <q-card>
-      <q-card-section class="row items-center">
-        <span class="q-ml-sm"
-          >Are you sure you want to delete this operation?</span
-        >
-      </q-card-section>
-
-      <q-card-actions align="right">
-        <q-btn
-          flat
-          label="Cancel"
-          color="primary"
-          @click="openConfirm = false"
-        />
-        <q-btn flat label="Delete" color="negative" @click="deleteOperation" />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
+  <DialogOperationUpdate
+    :operation="props.operation"
+    :is-open-dialog="openDialogUpdate"
+    @close-update-dialog="openDialogUpdate = false"
+  />
+  <DialogOperationDelete
+    :operation="props.operation"
+    :is-open-dialog="openDialogDelete"
+    @close-delete-dialog="openDialogDelete = false"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useQuasar } from 'quasar';
-import { useOperation } from 'composables';
 import { UserOperation } from 'models';
 import { type PropType } from 'vue';
 import { date } from 'quasar';
-import { useOperationStore } from 'src/stores/operation';
-
-const { deleteUserOperation } = useOperation();
-const operationStore = useOperationStore();
-const $q = useQuasar();
+import DialogOperationUpdate from 'components/DialogOperationUpdate.vue';
+import DialogOperationDelete from 'components/DialogOperationDelete.vue';
 
 const props = defineProps({
   operation: Object as PropType<UserOperation>,
 });
 
-const openConfirm = ref(false);
+const openDialogDelete = ref(false);
+const openDialogUpdate = ref(false);
 
 const getColorAmount = (kind: number | undefined) => {
   if (kind === 1) return 'text-positive';
   else return 'text-negative';
-};
-
-const deleteOperation = async () => {
-  if (!props.operation?.id) return;
-  await deleteUserOperation(props.operation?.id).then(() => {
-    operationStore.getUserOverview();
-    openConfirm.value = false;
-    $q.notify({
-      message: 'Operation deleted',
-      color: 'positive',
-      position: 'top-right',
-      icon: 'check_circle_outline',
-    });
-  });
 };
 </script>
