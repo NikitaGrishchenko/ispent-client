@@ -4,8 +4,7 @@
       <q-card-section>
         <div class="text-h6">Update operation</div>
       </q-card-section>
-      <q-form>
-        <!-- <q-form v-if="updateOperation" @submit="onSubmit"> -->
+      <q-form @submit="onSubmit">
         <q-card-section class="q-pt-none">
           <q-btn-toggle
             v-model="kind"
@@ -59,12 +58,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch, reactive } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import { useOperation } from 'composables';
 import { UserCategory, UserOperation } from 'models';
 import { type PropType } from 'vue';
+import { useAuthStore } from 'src/stores/auth';
+import { useOperationStore } from 'src/stores/operation';
 
-const { getUserCategories } = useOperation();
+const authStore = useAuthStore();
+const { updateUserOperation } = useOperation();
+const operationStore = useOperationStore();
 
 const props = defineProps({
   isOpenDialog: Boolean,
@@ -85,36 +88,24 @@ const comment = ref<string>('');
 
 const showDialog = computed(() => props.isOpenDialog);
 
-// const updateOperation = reactive<UserOperation>(
-//   Object.assign({}, props.operation)
-// );
-
-// const onSubmit = async () => {
-//   try {
-//     const data: UserOperation = {
-//       userId: authStore.idUser as number,
-//       categoryUserId: selectedCategory.value?.id as number,
-//       amount: amount.value as number,
-//       kind: Number(kind.value),
-//       date: Date.now(),
-//       comment: comment.value,
-//     };
-
-//     await createUserOperation(data).then(async () => {
-//       clearInput();
-//       await operationStore.getUserOverview();
-//       $q.notify({
-//         message: 'Operation added',
-//         color: 'positive',
-//         position: 'top-right',
-//         icon: 'check_circle_outline',
-//       });
-//     });
-//   } catch (e) {
-//     console.error(e);
-//   } finally {
-//   }
-// };
+const onSubmit = async () => {
+  try {
+    const data: UserOperation = {
+      id: props.operation?.id,
+      userId: authStore.idUser as number,
+      categoryUserId: categoryUser.value?.id as number,
+      amount: amount.value as number,
+      kind: Number(kind.value),
+      comment: comment.value,
+    };
+    await updateUserOperation(data).then(async () => {
+      await operationStore.getUserOverview();
+    });
+  } catch (e) {
+    console.error(e);
+  } finally {
+  }
+};
 
 const getFilteringUserCategory = (newValue: number) => {
   filteringUserCategory.value = userCategory.value?.filter(
@@ -127,7 +118,7 @@ watch(kind, (newValue) => {
 });
 
 onMounted(async () => {
-  userCategory.value = await getUserCategories();
+  userCategory.value = operationStore.userCategory;
   if (props.operation) {
     categoryUser.value = props.operation?.categoryUser;
     kind.value = props.operation?.kind;

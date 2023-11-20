@@ -34,9 +34,13 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from 'src/stores/auth';
+import { ref, onMounted } from 'vue';
 import DialogOperationCreate from 'components/DialogOperationCreate.vue';
-import { ref } from 'vue';
+import { useOperationStore } from 'src/stores/operation';
+import { useAuthStore } from 'src/stores/auth';
+
+const operationStore = useOperationStore();
+const authStore = useAuthStore();
 
 const isOpenDialog = ref<boolean>(false);
 
@@ -44,5 +48,7 @@ const resetStateDialog = async () => {
   isOpenDialog.value = !isOpenDialog.value;
 };
 
-const authStore = useAuthStore();
+onMounted(async () => {
+  await operationStore.getUserCategories();
+});
 </script>

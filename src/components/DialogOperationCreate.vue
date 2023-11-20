@@ -68,7 +68,7 @@ import { useQuasar } from 'quasar';
 
 const authStore = useAuthStore();
 const operationStore = useOperationStore();
-const { getUserCategories, createUserOperation } = useOperation();
+const { createUserOperation } = useOperation();
 const $q = useQuasar();
 
 const props = defineProps({
@@ -130,6 +130,6 @@ watch(kind, (newValue) => {
 });
 
 onMounted(async () => {
-  userCategory.value = await getUserCategories();
+  userCategory.value = operationStore.userCategory;
 });
 </script>

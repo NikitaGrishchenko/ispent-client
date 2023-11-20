@@ -17,7 +17,7 @@ export interface UserOperation {
   categoryUser?: UserCategory;
   kind: number;
   amount: number;
-  date: number;
+  date?: number;
   comment: string;
 }
 
@@ -30,4 +30,5 @@ export interface UserOverview {
 
 export interface OperationState {
   userOverview: UserOverview | undefined;
+  userCategory: UserCategory[] | undefined;
 }

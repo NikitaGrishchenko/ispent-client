@@ -4,22 +4,22 @@ import { useApi } from 'composables';
 const { api } = useApi();
 
 export function useOperation() {
-  const getUserCategories = async () => {
-    const data = await api<UserCategory[]>(
-      {
-        method: 'get',
-        url: 'operation/categories/',
-      },
-      false
-    );
-    return data;
-  };
-
   const createUserOperation = async (data: UserOperation) => {
     await api<UserOperation[]>(
       {
         method: 'post',
         url: 'operation/create/',
+        data: data,
+      },
+      false
+    );
+  };
+
+  const updateUserOperation = async (data: UserOperation) => {
+    await api<UserOperation[]>(
+      {
+        method: 'put',
+        url: 'operation/update/',
         data: data,
       },
       false
@@ -37,8 +37,8 @@ export function useOperation() {
   };
 
   return {
-    getUserCategories,
     createUserOperation,
     deleteUserOperation,
+    updateUserOperation,
   };
 }
