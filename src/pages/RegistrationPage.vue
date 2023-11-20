@@ -68,8 +68,12 @@ const clear = () => {
 };
 
 const onSubmit = async () => {
-  await createUser(createUserData.value).then(() => {
-    clear();
-  });
+  await createUser(createUserData.value)
+    .then((e) => {
+      console.log(e);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
 };
 </script>

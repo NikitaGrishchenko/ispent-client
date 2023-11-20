@@ -18,7 +18,7 @@ export function useApi() {
     } catch (e) {
       console.error(e);
       Notify.create({
-        message: 'Server error',
+        message: `Server error: ${(e as Error).message}`,
         color: 'negative',
         position: 'top-right',
       });
