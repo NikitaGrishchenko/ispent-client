@@ -52,6 +52,14 @@ body {
   box-shadow: none !important;
 }
 
+.form__toggle {
+  background: $dark-field-bg;
+}
+
+.q-field__bottom {
+  padding: 3px 0;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 85%;

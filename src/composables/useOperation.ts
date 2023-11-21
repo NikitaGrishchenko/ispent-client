@@ -1,5 +1,6 @@
 import { UserCategory, UserOperation } from 'models';
 import { useApi } from 'composables';
+import { Notify } from 'quasar';
 
 const { api } = useApi();
 
@@ -12,7 +13,14 @@ export function useOperation() {
         data: data,
       },
       false
-    );
+    ).then(() => {
+      Notify.create({
+        message: 'The operation has been created',
+        color: 'positive',
+        position: 'top-right',
+        icon: 'check_circle_outline',
+      });
+    });
   };
 
   const updateUserOperation = async (data: UserOperation) => {
@@ -23,7 +31,14 @@ export function useOperation() {
         data: data,
       },
       false
-    );
+    ).then(() => {
+      Notify.create({
+        message: 'The operation has been updated',
+        color: 'positive',
+        position: 'top-right',
+        icon: 'check_circle_outline',
+      });
+    });
   };
 
   const deleteUserOperation = async (id_operation: number) => {
@@ -33,7 +48,14 @@ export function useOperation() {
         url: `operation/delete/${id_operation}`,
       },
       false
-    );
+    ).then(() => {
+      Notify.create({
+        message: 'The operation has been deleted',
+        color: 'positive',
+        position: 'top-right',
+        icon: 'check_circle_outline',
+      });
+    });
   };
 
   return {

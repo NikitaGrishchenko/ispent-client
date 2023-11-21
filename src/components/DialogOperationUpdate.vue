@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="showDialog" persistent>
+  <q-dialog @show="filterUserCategory(kind!)" v-model="showDialog" persistent>
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">Update operation</div>
@@ -9,12 +9,12 @@
           <q-btn-toggle
             v-model="kind"
             spread
-            class="q-mb-md no-box-shadow"
+            class="q-mb-md no-box-shadow form__toggle"
             @update:model-value="categoryUser = undefined"
             toggle-color="primary"
             :options="[
-              { label: 'INCOME', value: 1 },
               { label: 'EXPENSE', value: 2 },
+              { label: 'INCOME', value: 1 },
             ]"
           />
           <q-input
@@ -22,9 +22,7 @@
             v-model="amount"
             label="Amount"
             lazy-rules
-            :rules="[
-              (val) => (val && val.length > 0) || 'Please type something',
-            ]"
+            :rules="[(val) => val.length > 0 || 'Please type something']"
           />
           <q-select
             v-model="categoryUser"
@@ -32,8 +30,10 @@
             option-label="name"
             label="Category"
             filled
+            lazy-rules
             input-debounce="0"
             class="q-field--with-bottom"
+            :rules="[(val) => val || 'Please select a category']"
           />
           <q-input
             filled
@@ -74,7 +74,6 @@ const props = defineProps({
   operation: Object as PropType<UserOperation>,
 });
 
-const userCategory = ref<UserCategory[]>();
 const filteringUserCategory = ref<UserCategory[]>();
 
 const emit = defineEmits<{
@@ -89,42 +88,37 @@ const comment = ref<string>('');
 const showDialog = computed(() => props.isOpenDialog);
 
 const onSubmit = async () => {
-  try {
-    const data: UserOperation = {
-      id: props.operation?.id,
-      userId: authStore.idUser as number,
-      categoryUserId: categoryUser.value?.id as number,
-      amount: amount.value as number,
-      kind: Number(kind.value),
-      comment: comment.value,
-    };
-    await updateUserOperation(data).then(async () => {
-      await operationStore.getUserOverview();
-    });
-  } catch (e) {
-    console.error(e);
-  } finally {
-  }
+  const data: UserOperation = {
+    id: props.operation?.id,
+    userId: authStore.idUser as number,
+    categoryUserId: categoryUser.value?.id as number,
+    amount: amount.value as number,
+    kind: Number(kind.value),
+    comment: comment.value,
+  };
+  await updateUserOperation(data).then(async () => {
+    await operationStore.getUserOverview();
+    emit('close-update-dialog');
+  });
 };
 
-const getFilteringUserCategory = (newValue: number) => {
-  filteringUserCategory.value = userCategory.value?.filter(
+const filterUserCategory = (newValue: number) => {
+  filteringUserCategory.value = operationStore.userCategory?.filter(
     (c) => c.kind === newValue
   );
 };
 
 watch(kind, (newValue) => {
-  getFilteringUserCategory(Number(newValue));
+  filterUserCategory(Number(newValue));
 });
 
 onMounted(async () => {
-  userCategory.value = operationStore.userCategory;
   if (props.operation) {
     categoryUser.value = props.operation?.categoryUser;
     kind.value = props.operation?.kind;
     amount.value = props.operation?.amount;
     comment.value = props.operation?.comment;
   }
-  if (props.operation?.kind) getFilteringUserCategory(props?.operation?.kind);
+  if (props.operation?.kind) filterUserCategory(props?.operation?.kind);
 });
 </script>

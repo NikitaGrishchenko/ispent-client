@@ -2,9 +2,9 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="container">
-        <q-toolbar-title class="text-bold text-primary">
+        <!-- <q-toolbar-title class="text-bold text-primary">
           ispent
-        </q-toolbar-title>
+        </q-toolbar-title> -->
       </q-toolbar>
     </q-header>
 

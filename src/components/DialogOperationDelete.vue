@@ -48,12 +48,6 @@ const deleteOperation = async () => {
   await deleteUserOperation(props.operation?.id).then(() => {
     operationStore.getUserOverview();
     emit('close-delete-dialog');
-    $q.notify({
-      message: 'Operation deleted',
-      color: 'positive',
-      position: 'top-right',
-      icon: 'check_circle_outline',
-    });
   });
 };
 </script>

@@ -1,6 +1,9 @@
 <template>
   <q-page class="login flex justify-center items-center">
     <q-form class="login-form" @submit="onSubmit">
+      <div class="text-center q-mb-xl">
+        <h5 class="text-bold text-primary">ispent</h5>
+      </div>
       <q-input
         filled
         v-model="username"
@@ -26,13 +29,9 @@
         unelevated
         color="primary"
       />
-      <q-btn
-        label="Register"
-        color="primary"
-        class="full-width"
-        flat
-        to="/registration"
-      />
+      <div class="flex justify-center q-pt-md">
+        <q-btn label="Register" color="primary" flat to="/registration" />
+      </div>
     </q-form>
   </q-page>
 </template>

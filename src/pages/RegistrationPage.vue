@@ -1,6 +1,6 @@
 <template>
   <q-page class="login flex justify-center items-center">
-    <q-form class="login-form" @submit="onSubmit">
+    <q-form ref="form" class="login-form" @submit="onSubmit">
       <h5 class="q-mb-md text-center">Registration</h5>
       <q-input
         filled
@@ -46,10 +46,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useAuth } from 'composables';
-
 import { UserCreate } from 'models';
 
 const { createUser } = useAuth();
+const form = ref<HTMLFormElement>();
 
 const createUserData = ref<UserCreate>({
   firstName: '',
@@ -65,15 +65,12 @@ const clear = () => {
     email: '',
     password: '',
   };
+  form?.value?.resetValidation();
 };
 
 const onSubmit = async () => {
-  await createUser(createUserData.value)
-    .then((e) => {
-      console.log(e);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+  await createUser(createUserData.value).then(() => {
+    clear();
+  });
 };
 </script>

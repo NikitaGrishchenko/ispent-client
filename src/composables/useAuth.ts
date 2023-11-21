@@ -1,6 +1,6 @@
 import { useApi } from 'composables';
 import { UserCreate } from 'models';
-
+import { Notify } from 'quasar';
 const { api } = useApi();
 
 export function useAuth() {
@@ -12,7 +12,14 @@ export function useAuth() {
         data: data,
       },
       true
-    );
+    ).then(() => {
+      Notify.create({
+        message: 'The user has been successfully registered!',
+        color: 'positive',
+        position: 'top-right',
+        icon: 'check_circle_outline',
+      });
+    });
   };
 
   return {

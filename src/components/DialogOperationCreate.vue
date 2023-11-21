@@ -1,40 +1,39 @@
 <template>
-  <q-dialog v-model="showDialog" persistent>
+  <q-dialog @show="filterUserCategory(kind)" v-model="showDialog" persistent>
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">New operation</div>
       </q-card-section>
-      <q-form @submit="onSubmit">
+      <q-form ref="form" @submit="onSubmit">
         <q-card-section class="q-pt-none">
           <q-btn-toggle
             v-model="kind"
             spread
-            class="q-mb-md no-box-shadow"
+            class="q-mb-md no-box-shadow form__toggle"
             @update:model-value="selectedCategory = undefined"
             toggle-color="primary"
             :options="[
-              { label: 'INCOME', value: 1 },
               { label: 'EXPENSE', value: 2 },
+              { label: 'INCOME', value: 1 },
             ]"
           />
           <q-input
             filled
             v-model="amount"
-            label="Amount"
             lazy-rules
-            :rules="[
-              (val) => (val && val.length > 0) || 'Please type something',
-            ]"
+            label="Amount"
+            :rules="[(val) => val.length > 0 || 'Please type something']"
           />
           <q-select
             v-model="selectedCategory"
             :options="filteringUserCategory"
             :disable="!kind"
             option-label="name"
+            lazy-rules
             label="Category"
             filled
+            :rules="[(val) => val || 'Please select a category']"
             input-debounce="0"
-            class="q-field--with-bottom"
           />
           <q-input
             filled
@@ -59,17 +58,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useOperation } from 'composables';
 import { UserCategory, UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
-import { useQuasar } from 'quasar';
 
 const authStore = useAuthStore();
 const operationStore = useOperationStore();
 const { createUserOperation } = useOperation();
-const $q = useQuasar();
 
 const props = defineProps({
   isOpenDialog: Boolean,
@@ -79,11 +76,12 @@ const emit = defineEmits<{
   (e: 'reset-state-dialog'): void;
 }>();
 
-const userCategory = ref<UserCategory[]>();
+const form = ref<HTMLFormElement>();
+
 const filteringUserCategory = ref<UserCategory[]>();
 
 const selectedCategory = ref<UserCategory>();
-const kind = ref<string>('');
+const kind = ref<number>(2);
 const amount = ref<number>();
 const comment = ref<string>('');
 
@@ -91,45 +89,35 @@ const clearInput = () => {
   selectedCategory.value = undefined;
   amount.value = undefined;
   comment.value = '';
-  kind.value = '';
+  kind.value = 2;
 };
 
 const onSubmit = async () => {
-  try {
-    const data: UserOperation = {
-      userId: authStore.idUser as number,
-      categoryUserId: selectedCategory.value?.id as number,
-      amount: amount.value as number,
-      kind: Number(kind.value),
-      date: Date.now(),
-      comment: comment.value,
-    };
+  const data: UserOperation = {
+    userId: authStore.idUser as number,
+    categoryUserId: selectedCategory.value?.id as number,
+    amount: amount.value as number,
+    kind: kind.value,
+    date: Date.now(),
+    comment: comment.value,
+  };
 
-    await createUserOperation(data).then(async () => {
-      clearInput();
-      await operationStore.getUserOverview();
-      $q.notify({
-        message: 'Operation added',
-        color: 'positive',
-        position: 'top-right',
-        icon: 'check_circle_outline',
-      });
-    });
-  } catch (e) {
-    console.error(e);
-  } finally {
-  }
+  await createUserOperation(data).then(async () => {
+    clearInput();
+    form?.value?.resetValidation();
+    await operationStore.getUserOverview();
+  });
 };
 
 const showDialog = computed(() => props.isOpenDialog);
 
-watch(kind, (newValue) => {
-  filteringUserCategory.value = userCategory.value?.filter(
-    (c) => c.kind === Number(newValue)
+const filterUserCategory = (kind: number) => {
+  filteringUserCategory.value = operationStore.double?.filter(
+    (c) => c.kind === Number(kind)
   );
-});
+};
 
-onMounted(async () => {
-  userCategory.value = operationStore.userCategory;
+watch(kind, (newValue) => {
+  filterUserCategory(newValue);
 });
 </script>
