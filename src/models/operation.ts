@@ -7,6 +7,8 @@ export interface UserCategory {
   id: number;
   userId: number;
   name: string;
+  color: string;
+  icon: string;
   kind: kindOperationEnum;
 }
 

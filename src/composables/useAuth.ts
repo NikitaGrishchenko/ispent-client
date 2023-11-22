@@ -1,9 +1,13 @@
 import { useApi } from 'composables';
 import { UserCreate } from 'models';
 import { Notify } from 'quasar';
+import { useRouter } from 'vue-router';
+
 const { api } = useApi();
 
 export function useAuth() {
+  const router = useRouter();
+
   const createUser = async (data: UserCreate) => {
     await api<UserCreate[]>(
       {
@@ -13,6 +17,7 @@ export function useAuth() {
       },
       true
     ).then(() => {
+      router.push({ name: 'LoginPage' });
       Notify.create({
         message: 'The user has been successfully registered!',
         color: 'positive',

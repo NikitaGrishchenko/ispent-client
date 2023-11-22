@@ -2,7 +2,11 @@
   <div class="operation row items-center q-mb-sm">
     <div class="col-6 flex items-center">
       <div class="operation__category-icon q-mr-md">
-        <q-icon name="favorite_border" size="32px" />
+        <q-icon
+          :name="operation?.categoryUser?.icon"
+          :style="{ color: operation?.categoryUser?.color }"
+          size="32px"
+        />
       </div>
       <div class="flex column">
         <p class="operation__category-name">

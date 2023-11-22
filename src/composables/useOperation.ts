@@ -1,4 +1,4 @@
-import { UserCategory, UserOperation } from 'models';
+import { UserOperation } from 'models';
 import { useApi } from 'composables';
 import { Notify } from 'quasar';
 
