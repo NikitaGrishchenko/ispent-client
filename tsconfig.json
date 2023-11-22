@@ -14,6 +14,9 @@
             ],
             "boot/*": [
                 "./src/boot/*"
+            ],
+            "enum": [
+                "./src/enum/index.ts"
             ]
         }
     }

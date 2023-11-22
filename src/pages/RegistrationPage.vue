@@ -27,11 +27,18 @@
       <q-input
         filled
         v-model="createUserData.password"
-        type="password"
+        :type="showPassword ? 'text' : 'password'"
         label="Password"
         lazy-rules
         :rules="[(val) => (val && val.length > 0) || 'Please type something']"
-      />
+      >
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword ? 'visibility' : 'visibility_off'"
+            class="cursor-pointer"
+            @click="showPassword = !showPassword"
+          /> </template
+      ></q-input>
       <q-btn
         type="submit"
         class="full-width"
@@ -50,6 +57,8 @@ import { UserCreate } from 'models';
 
 const { createUser } = useAuth();
 const form = ref<HTMLFormElement>();
+
+const showPassword = ref<boolean>(false);
 
 const createUserData = ref<UserCreate>({
   firstName: '',

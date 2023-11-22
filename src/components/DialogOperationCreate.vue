@@ -12,10 +12,7 @@
             class="q-mb-md no-box-shadow form__toggle"
             @update:model-value="selectedCategory = undefined"
             toggle-color="primary"
-            :options="[
-              { label: 'EXPENSE', value: 2 },
-              { label: 'INCOME', value: 1 },
-            ]"
+            :options="OPERATION_KIND"
           />
           <q-input
             filled
@@ -66,6 +63,7 @@ import { useAuthStore } from 'src/stores/auth';
 import { useOperation } from 'composables';
 import { UserCategory, UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
+import { OPERATION_KIND } from 'enum';
 
 const authStore = useAuthStore();
 const operationStore = useOperationStore();

@@ -52,6 +52,7 @@ module.exports = configure(function (/* ctx */) {
         models: path.join(__dirname, './src/models/index.ts'),
         composables: path.join(__dirname, './src/composables/index.ts'),
         images: path.join(__dirname, './src/assets/images'),
+        enum: path.join(__dirname, './src/enum/index.ts'),
       },
 
       // vueRouterBase,

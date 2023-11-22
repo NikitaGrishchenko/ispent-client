@@ -16,11 +16,19 @@
       <q-input
         filled
         v-model="password"
-        type="password"
+        :type="showPassword ? 'text' : 'password'"
         label="Password"
         lazy-rules
         :rules="[(val) => (val && val.length > 0) || 'Please type something']"
-      />
+      >
+        <template v-slot:append>
+          <q-icon
+            :name="showPassword ? 'visibility' : 'visibility_off'"
+            class="cursor-pointer"
+            @click="showPassword = !showPassword"
+          />
+        </template>
+      </q-input>
       <q-btn
         :loading="isLoading"
         type="submit"
@@ -42,6 +50,7 @@ import { useAuthStore } from 'src/stores/auth';
 import { isLoading } from 'composables';
 
 const authStore = useAuthStore();
+const showPassword = ref<boolean>(false);
 
 const username = ref<string>('');
 const password = ref<string>('');
