@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="text-h6">Update operation</div>
       </q-card-section>
-      <q-form @submit="onSubmit">
+      <q-form ref="form" @submit="onSubmit">
         <q-card-section class="q-pt-none">
           <q-btn-toggle
             v-model="kind"
@@ -22,7 +22,7 @@
             v-model="amount"
             label="Amount"
             lazy-rules
-            :rules="[(val) => val.length > 0 || 'Please type something']"
+            :rules="[(val) => (val && val >= 0) || 'Please type something']"
           />
           <q-select
             v-model="categoryUser"
@@ -48,9 +48,12 @@
             flat
             label="Cancel"
             v-close-popup
-            @click="emit('close-update-dialog')"
+            @click="
+              emit('close-update-dialog');
+              setDefaultValues();
+            "
           />
-          <q-btn flat label="Add" type="submit" />
+          <q-btn unelevated color="primary" label="Update" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -74,6 +77,8 @@ const props = defineProps({
   operation: Object as PropType<UserOperation>,
 });
 
+const form = ref<HTMLFormElement>();
+
 const filteringUserCategory = ref<UserCategory[]>();
 
 const emit = defineEmits<{
@@ -87,18 +92,31 @@ const comment = ref<string>('');
 
 const showDialog = computed(() => props.isOpenDialog);
 
+const setDefaultValues = () => {
+  if (props.operation) {
+    categoryUser.value = props.operation?.categoryUser;
+    kind.value = props.operation?.kind;
+    amount.value = props.operation?.amount;
+    comment.value = props.operation?.comment;
+  }
+};
+
 const onSubmit = async () => {
-  const data: UserOperation = {
-    id: props.operation?.id,
-    userId: authStore.idUser as number,
-    categoryUserId: categoryUser.value?.id as number,
-    amount: amount.value as number,
-    kind: Number(kind.value),
-    comment: comment.value,
-  };
-  await updateUserOperation(data).then(async () => {
-    await operationStore.getUserOverview();
-    emit('close-update-dialog');
+  form?.value?.validate().then(async (success: boolean) => {
+    if (success) {
+      const data: UserOperation = {
+        id: props.operation?.id,
+        userId: authStore.idUser as number,
+        categoryUserId: categoryUser.value?.id as number,
+        amount: amount.value as number,
+        kind: Number(kind.value),
+        comment: comment.value,
+      };
+      await updateUserOperation(data).then(async () => {
+        await operationStore.getUserOverview();
+        emit('close-update-dialog');
+      });
+    }
   });
 };
 
@@ -113,12 +131,7 @@ watch(kind, (newValue) => {
 });
 
 onMounted(async () => {
-  if (props.operation) {
-    categoryUser.value = props.operation?.categoryUser;
-    kind.value = props.operation?.kind;
-    amount.value = props.operation?.amount;
-    comment.value = props.operation?.comment;
-  }
+  setDefaultValues();
   if (props.operation?.kind) filterUserCategory(props?.operation?.kind);
 });
 </script>

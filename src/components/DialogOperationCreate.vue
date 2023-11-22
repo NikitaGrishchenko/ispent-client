@@ -22,7 +22,7 @@
             v-model="amount"
             lazy-rules
             label="Amount"
-            :rules="[(val) => val.length > 0 || 'Please type something']"
+            :rules="[(val) => (val && val >= 0) || 'Please type something']"
           />
           <q-select
             v-model="selectedCategory"
@@ -48,9 +48,12 @@
             flat
             label="Cancel"
             v-close-popup
-            @click="emit('reset-state-dialog')"
+            @click="
+              emit('reset-state-dialog');
+              clearInput();
+            "
           />
-          <q-btn flat label="Add" type="submit" />
+          <q-btn unelevated color="primary" label="Add" type="submit" />
         </q-card-actions>
       </q-form>
     </q-card>
@@ -93,19 +96,23 @@ const clearInput = () => {
 };
 
 const onSubmit = async () => {
-  const data: UserOperation = {
-    userId: authStore.idUser as number,
-    categoryUserId: selectedCategory.value?.id as number,
-    amount: amount.value as number,
-    kind: kind.value,
-    date: Date.now(),
-    comment: comment.value,
-  };
+  form?.value?.validate().then(async (success: boolean) => {
+    if (success) {
+      const data: UserOperation = {
+        userId: authStore.idUser as number,
+        categoryUserId: selectedCategory.value?.id as number,
+        amount: amount.value as number,
+        kind: kind.value,
+        date: Date.now(),
+        comment: comment.value,
+      };
 
-  await createUserOperation(data).then(async () => {
-    clearInput();
-    form?.value?.resetValidation();
-    await operationStore.getUserOverview();
+      await createUserOperation(data).then(async () => {
+        clearInput();
+        form?.value?.resetValidation();
+        await operationStore.getUserOverview();
+      });
+    }
   });
 };
 
