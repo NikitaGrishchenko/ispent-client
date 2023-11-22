@@ -24,7 +24,7 @@
         </q-card-section>
       </q-card>
     </div>
-    <div class="col-6">
+    <div class="col-7">
       <div class="overview__last-operation">
         <div class="flex justify-between q-mb-md">
           <h6>Last operation</h6>

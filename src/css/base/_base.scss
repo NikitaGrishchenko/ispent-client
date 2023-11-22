@@ -60,6 +60,10 @@ body {
   padding: 3px 0;
 }
 
+.q-tooltip--style {
+  font-size: 17px !important;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 85%;
@@ -67,11 +71,11 @@ body {
 }
 @media (min-width: 992px) {
   .container {
-    width: 75%;
+    width: 85%;
   }
 }
 @media (min-width: 1200px) {
   .container {
-    width: 65%;
+    width: 75%;
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="lHh LpR lFf">
+    <!-- <q-header elevated>
       <q-toolbar class="container">
         <q-toolbar-title class="text-bold text-primary">
           ispent
@@ -13,7 +13,18 @@
           @click="authStore.userLogout()"
         />
       </q-toolbar>
-    </q-header>
+    </q-header> -->
+
+    <q-drawer side="left">
+      <h5 class="text-bold text-primary">ispent</h5>
+      <q-btn
+        v-if="authStore.isAuth"
+        flat
+        icon="logout"
+        label="Logout"
+        @click="authStore.userLogout()"
+      />
+    </q-drawer>
 
     <q-page-container>
       <router-view />
