@@ -117,7 +117,7 @@ const onSubmit = async () => {
 const showDialog = computed(() => props.isOpenDialog);
 
 const filterUserCategory = (kind: number) => {
-  filteringUserCategory.value = operationStore.double?.filter(
+  filteringUserCategory.value = operationStore.userCategory?.filter(
     (c) => c.kind === Number(kind)
   );
 };

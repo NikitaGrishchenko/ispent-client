@@ -56,10 +56,6 @@ const username = ref<string>('');
 const password = ref<string>('');
 
 const onSubmit = async () => {
-  try {
-    await authStore.userLogin(username.value, password.value);
-  } catch (error) {
-  } finally {
-  }
+  await authStore.userLogin(username.value, password.value);
 };
 </script>

@@ -10,9 +10,6 @@ export const useOperationStore = defineStore('operationStore', {
     userOverview: undefined as UserOverview | undefined,
     userCategory: undefined as UserCategory[] | undefined,
   }),
-  getters: {
-    double: (state) => state.userCategory,
-  },
   actions: {
     async getUserOverview() {
       const data = await api<UserOverview>(

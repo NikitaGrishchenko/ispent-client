@@ -11,9 +11,6 @@ export const useAuthStore = defineStore('authStore', {
     isAuth: false,
     idUser: null,
   }),
-  getters: {
-    // doubleCount: (state) => state.counter * 2,
-  },
   actions: {
     async userLogin(username: string, password: string) {
       const data = new URLSearchParams();
@@ -34,7 +31,7 @@ export const useAuthStore = defineStore('authStore', {
           );
           this.idUser = token_decode.sub;
           this.isAuth = true;
-          this.router.push({ name: 'IndexPage' });
+          this.router.push({ name: 'Overview' });
         })
         .catch((e) => {
           console.error(e);
@@ -50,7 +47,7 @@ export const useAuthStore = defineStore('authStore', {
       )
         .then(() => {
           this.clear();
-          this.router.push({ name: 'LoginPage' });
+          this.router.push({ name: 'Login' });
         })
         .catch((e) => {
           console.error(e);
@@ -59,7 +56,7 @@ export const useAuthStore = defineStore('authStore', {
     clear() {
       this.isAuth = false;
       this.idUser = null;
-      this.router.push({ name: 'LoginPage' });
+      this.router.push({ name: 'Login' });
     },
   },
 });

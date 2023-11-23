@@ -17,7 +17,7 @@ export function useAuth() {
       },
       true
     ).then(() => {
-      router.push({ name: 'LoginPage' });
+      router.push({ name: 'Login' });
       Notify.create({
         message: 'The user has been successfully registered!',
         color: 'positive',

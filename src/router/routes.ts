@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        name: 'IndexPage',
+        name: 'Overview',
         component: () => import('pages/IndexPage.vue'),
       },
     ],
@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        name: 'LoginPage',
+        name: 'Login',
         component: () => import('pages/LoginPage.vue'),
       },
     ],
@@ -32,7 +32,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        name: 'RegistrationPage',
+        name: 'Registration',
         component: () => import('pages/RegistrationPage.vue'),
       },
     ],
@@ -44,8 +44,8 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        name: 'UserCategoryPage',
-        component: () => import('pages/UserCategoryPage.vue'),
+        name: 'Categories',
+        component: () => import('pages/CategoryUserPage.vue'),
       },
     ],
   },
@@ -56,7 +56,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        name: 'OperationPage',
+        name: 'Operations',
         component: () => import('pages/OperationPage.vue'),
       },
     ],
