@@ -2,7 +2,9 @@
   <q-page class="container">
     <div class="row">
       <div class="col-4">
-        <div class="card"></div>
+        <div class="card">
+          {{ operationStore.userCategory }}
+        </div>
       </div>
       <div class="col-8">
         <div class="card q-mb-md">
@@ -29,19 +31,11 @@ import { useOperationStore } from 'src/stores/operation';
 import AppCategoryUser from 'components/AppCategoryUser.vue';
 
 const operationStore = useOperationStore();
-const incomeCategoryUser = ref<UserCategory[]>();
-const expenseCategoryUser = ref<UserCategory[]>();
 
-const filterUserCategory = () => {
-  incomeCategoryUser.value = operationStore.userCategory?.filter(
-    (c) => c.kind === 1
-  );
-  expenseCategoryUser.value = operationStore.userCategory?.filter(
-    (c) => c.kind === 2
-  );
-};
-
-onMounted(async () => {
-  filterUserCategory();
+const incomeCategoryUser = computed(() => {
+  return operationStore.userCategory?.filter((c) => c.kind === 1);
+});
+const expenseCategoryUser = computed(() => {
+  return operationStore.userCategory?.filter((c) => c.kind === 2);
 });
 </script>
