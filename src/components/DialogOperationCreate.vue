@@ -46,7 +46,7 @@
             label="Cancel"
             v-close-popup
             @click="
-              emit('reset-state-dialog');
+              emit('close-dialog');
               clearInput();
             "
           />
@@ -74,7 +74,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-  (e: 'reset-state-dialog'): void;
+  (e: 'close-dialog'): void;
 }>();
 
 const form = ref<HTMLFormElement>();

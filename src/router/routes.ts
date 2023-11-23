@@ -37,6 +37,30 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/categories',
+    meta: { middleware: ['auth'] },
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'UserCategoryPage',
+        component: () => import('pages/UserCategoryPage.vue'),
+      },
+    ],
+  },
+  {
+    path: '/operation',
+    meta: { middleware: ['auth'] },
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'OperationPage',
+        component: () => import('pages/OperationPage.vue'),
+      },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it
