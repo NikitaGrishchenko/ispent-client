@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-col-gutter-sm">
+  <div class="row q-col-gutter-md">
     <div class="col-4">
       <div flat class="card">
         <p class="card__title">Balance</p>

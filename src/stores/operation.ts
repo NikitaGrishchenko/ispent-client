@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import type { OperationState } from 'src/models/operation';
 import { UserOverview, UserCategory } from 'models';
 import { useApi } from 'composables';
+import { Notify } from 'quasar';
 
 const { api } = useApi();
 
@@ -41,8 +42,14 @@ export const useOperationStore = defineStore('operationStore', {
           data: data,
         },
         true
-      ).then((e) => {
-        console.log(e);
+      ).then((responce) => {
+        Notify.create({
+          message: 'The category has been created',
+          color: 'positive',
+          position: 'top-right',
+          icon: 'check_circle_outline',
+        });
+        this.userCategory?.unshift(responce);
       });
     },
   },

@@ -1,7 +1,7 @@
 <template>
   <q-page class="category-user container">
-    <div class="row">
-      <div class="col-5">
+    <div class="row q-col-gutter-md">
+      <div class="col-6">
         <div class="card">
           <p class="card__title">Create new category</p>
           <q-form ref="form" @submit="onSubmit">
@@ -77,7 +77,7 @@
           </q-form>
         </div>
       </div>
-      <div class="col-5">
+      <div class="col-6">
         <div class="card q-mb-md">
           <p class="card__title">Income categories</p>
           <template v-for="category in incomeCategoryUser" :key="category.id">
@@ -143,7 +143,6 @@ const onSubmit = async () => {
         .then(async () => {
           clearInput();
           form?.value?.resetValidation();
-          await operationStore.getUserOverview();
         });
     }
   });
