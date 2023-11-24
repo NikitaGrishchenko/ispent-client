@@ -32,5 +32,18 @@ export const useOperationStore = defineStore('operationStore', {
       );
       this.userCategory = data;
     },
+
+    async createUserCategory(data: UserCategory) {
+      await api<UserCategory[]>(
+        {
+          method: 'post',
+          url: 'operation/category/create/',
+          data: data,
+        },
+        true
+      ).then((e) => {
+        console.log(e);
+      });
+    },
   },
 });

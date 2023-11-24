@@ -4,7 +4,7 @@ export enum kindOperationEnum {
 }
 
 export interface UserCategory {
-  id: number;
+  id?: number;
   userId: number;
   name: string;
   color: string;

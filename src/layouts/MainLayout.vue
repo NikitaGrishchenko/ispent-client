@@ -30,7 +30,7 @@
       </q-list>
     </q-drawer>
 
-    <q-page-container class="q-my-md">
+    <q-page-container>
       <router-view />
       <DialogOperationCreate
         :is-open-dialog="isOpenDialogCreateOperation"
