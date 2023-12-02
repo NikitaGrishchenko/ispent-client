@@ -18,25 +18,13 @@
       </div>
     </div>
     <div class="col-3 flex">
-      <div
+      <AppInlineButton
         v-if="props.operation?.comment"
-        class="operation__button flex flex-center"
-      >
-        <q-icon name="info" size="20px" />
-        <q-tooltip> {{ props.operation?.comment }} </q-tooltip>
-      </div>
-      <div
-        @click="openDialogDelete = true"
-        class="operation__button flex flex-center"
-      >
-        <q-icon name="delete_outline" size="20px" />
-      </div>
-      <div
-        @click="openDialogUpdate = true"
-        class="operation__button flex flex-center"
-      >
-        <q-icon name="edit" size="20px" />
-      </div>
+        icon="info"
+        :tooltip-text="props.operation?.comment"
+      />
+      <AppInlineButton icon="delete_outline" @click="openDialogDelete = true" />
+      <AppInlineButton icon="edit" @click="openDialogUpdate = true" />
     </div>
     <div
       class="col-2 operation__amount text-right"
@@ -64,6 +52,7 @@ import { type PropType } from 'vue';
 import { date } from 'quasar';
 import DialogOperationUpdate from 'components/DialogOperationUpdate.vue';
 import DialogOperationDelete from 'components/DialogOperationDelete.vue';
+import AppInlineButton from 'components/AppInlineButton.vue';
 
 const props = defineProps({
   operation: Object as PropType<UserOperation>,

@@ -1,0 +1,16 @@
+@charset 'UTF-8';
+
+body.body--dark {
+  .inline-button {
+    background: $dark-field-bg;
+    width: 26px;
+    height: 26px;
+    border-radius: 3px;
+    margin: 3px;
+    opacity: 0;
+    &:hover {
+      cursor: pointer;
+      background: $gray;
+    }
+  }
+}

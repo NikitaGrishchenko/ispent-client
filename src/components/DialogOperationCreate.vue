@@ -1,5 +1,5 @@
 <template>
-  <q-dialog @show="filterUserCategory(kind)" v-model="showDialog" persistent>
+  <q-dialog @show="filterCategoryUser(kind)" v-model="showDialog" persistent>
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">New operation</div>
@@ -23,7 +23,7 @@
           />
           <q-select
             v-model="selectedCategory"
-            :options="filteringUserCategory"
+            :options="filteringCategoryUser"
             :disable="!kind"
             option-label="name"
             lazy-rules
@@ -61,7 +61,7 @@
 import { ref, computed, watch } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useOperation } from 'composables';
-import { UserCategory, UserOperation } from 'models';
+import { CategoryUser, UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
 import { OPERATION_KIND } from 'enum';
 
@@ -79,9 +79,9 @@ const emit = defineEmits<{
 
 const form = ref<HTMLFormElement>();
 
-const filteringUserCategory = ref<UserCategory[]>();
+const filteringCategoryUser = ref<CategoryUser[]>();
 
-const selectedCategory = ref<UserCategory>();
+const selectedCategory = ref<CategoryUser>();
 const kind = ref<number>(2);
 const amount = ref<number>();
 const comment = ref<string>('');
@@ -116,13 +116,13 @@ const onSubmit = async () => {
 
 const showDialog = computed(() => props.isOpenDialog);
 
-const filterUserCategory = (kind: number) => {
-  filteringUserCategory.value = operationStore.userCategory?.filter(
+const filterCategoryUser = (kind: number) => {
+  filteringCategoryUser.value = operationStore.categoryUser?.filter(
     (c) => c.kind === Number(kind)
   );
 };
 
 watch(kind, (newValue) => {
-  filterUserCategory(newValue);
+  filterCategoryUser(newValue);
 });
 </script>

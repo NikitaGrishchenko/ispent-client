@@ -1,5 +1,5 @@
 <template>
-  <q-dialog @show="filterUserCategory(kind!)" v-model="showDialog" persistent>
+  <q-dialog @show="filterCategoryUser(kind!)" v-model="showDialog" persistent>
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">Update operation</div>
@@ -23,7 +23,7 @@
           />
           <q-select
             v-model="categoryUser"
-            :options="filteringUserCategory"
+            :options="filteringCategoryUser"
             option-label="name"
             label="Category"
             filled
@@ -60,7 +60,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
 import { useOperation } from 'composables';
-import { UserCategory, UserOperation } from 'models';
+import { CategoryUser, UserOperation } from 'models';
 import { type PropType } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useOperationStore } from 'src/stores/operation';
@@ -77,13 +77,13 @@ const props = defineProps({
 
 const form = ref<HTMLFormElement>();
 
-const filteringUserCategory = ref<UserCategory[]>();
+const filteringCategoryUser = ref<CategoryUser[]>();
 
 const emit = defineEmits<{
   (e: 'close-update-dialog'): void;
 }>();
 
-const categoryUser = ref<UserCategory>();
+const categoryUser = ref<CategoryUser>();
 const kind = ref<number>();
 const amount = ref<number>();
 const comment = ref<string>('');
@@ -118,18 +118,18 @@ const onSubmit = async () => {
   });
 };
 
-const filterUserCategory = (newValue: number) => {
-  filteringUserCategory.value = operationStore.userCategory?.filter(
+const filterCategoryUser = (newValue: number) => {
+  filteringCategoryUser.value = operationStore.categoryUser?.filter(
     (c) => c.kind === newValue
   );
 };
 
 watch(kind, (newValue) => {
-  filterUserCategory(Number(newValue));
+  filterCategoryUser(Number(newValue));
 });
 
 onMounted(async () => {
   setDefaultValues();
-  if (props.operation?.kind) filterUserCategory(props?.operation?.kind);
+  if (props.operation?.kind) filterCategoryUser(props?.operation?.kind);
 });
 </script>

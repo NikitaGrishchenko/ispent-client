@@ -3,7 +3,7 @@ export enum kindOperationEnum {
   EXPENSE = 2,
 }
 
-export interface UserCategory {
+export interface CategoryUser {
   id?: number;
   userId: number;
   name: string;
@@ -16,7 +16,7 @@ export interface UserOperation {
   id?: number;
   userId: number;
   categoryUserId: number;
-  categoryUser?: UserCategory;
+  categoryUser?: CategoryUser;
   kind: number;
   amount: number;
   date?: number;
@@ -32,5 +32,5 @@ export interface UserOverview {
 
 export interface OperationState {
   userOverview: UserOverview | undefined;
-  userCategory: UserCategory[] | undefined;
+  categoryUser: CategoryUser[] | undefined;
 }

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { OperationState } from 'src/models/operation';
-import { UserOverview, UserCategory } from 'models';
+import { UserOverview, CategoryUser } from 'models';
 import { useApi } from 'composables';
 import { Notify } from 'quasar';
 
@@ -9,7 +9,7 @@ const { api } = useApi();
 export const useOperationStore = defineStore('operationStore', {
   state: (): OperationState => ({
     userOverview: undefined as UserOverview | undefined,
-    userCategory: undefined as UserCategory[] | undefined,
+    categoryUser: undefined as CategoryUser[] | undefined,
   }),
   actions: {
     async getUserOverview() {
@@ -24,32 +24,55 @@ export const useOperationStore = defineStore('operationStore', {
     },
 
     async getUserCategories() {
-      const data = await api<UserCategory[]>(
+      const data = await api<CategoryUser[]>(
         {
           method: 'get',
           url: 'operation/categories/',
         },
         true
       );
-      this.userCategory = data;
+      this.categoryUser = data;
     },
 
-    async createUserCategory(data: UserCategory) {
-      await api<UserCategory[]>(
+    async createCategoryUser(data: CategoryUser) {
+      await api<CategoryUser>(
         {
           method: 'post',
           url: 'operation/category/create/',
           data: data,
         },
         true
-      ).then((responce) => {
+      ).then((responce: CategoryUser) => {
         Notify.create({
           message: 'The category has been created',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
         });
-        this.userCategory?.unshift(responce);
+        this.categoryUser?.unshift(responce);
+      });
+    },
+
+    async deleteCategoryUser(id_category: number) {
+      await api<CategoryUser>(
+        {
+          method: 'delete',
+          url: `operation/category/delete/${id_category}`,
+        },
+        false
+      ).then((responce: CategoryUser) => {
+        const indexDeletedItem = this.categoryUser
+          ?.map((i) => i.id)
+          .indexOf(responce.id);
+        if (indexDeletedItem) {
+          this.categoryUser?.splice(indexDeletedItem, 1);
+        }
+        Notify.create({
+          message: 'The category user has been deleted',
+          color: 'positive',
+          position: 'top-right',
+          icon: 'check_circle_outline',
+        });
       });
     },
   },

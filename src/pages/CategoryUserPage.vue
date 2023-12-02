@@ -79,15 +79,15 @@
       </div>
       <div class="col-6">
         <div class="card q-mb-md">
-          <p class="card__title">Income categories</p>
-          <template v-for="category in incomeCategoryUser" :key="category.id">
-            <AppCategoryUser :category-user="category" />
+          <p class="card__title">Expense categories</p>
+          <template v-for="category in expenseCategoryUser" :key="category.id">
+            <CategoryUserItem :category-user="category" />
           </template>
         </div>
         <div class="card">
-          <p class="card__title">Expense categories</p>
-          <template v-for="category in expenseCategoryUser" :key="category.id">
-            <AppCategoryUser :category-user="category" />
+          <p class="card__title">Income categories</p>
+          <template v-for="category in incomeCategoryUser" :key="category.id">
+            <CategoryUserItem :category-user="category" />
           </template>
         </div>
       </div>
@@ -103,9 +103,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { UserCategory } from 'models';
+import { CategoryUser } from 'models';
 import { useOperationStore } from 'src/stores/operation';
-import AppCategoryUser from 'components/AppCategoryUser.vue';
+import CategoryUserItem from 'components/CategoryUser/CategoryUserItem.vue';
 import DialogChoiceIconCategory from 'components/DialogChoiceIconCategory.vue';
 import { useAuthStore } from 'src/stores/auth';
 import { OPERATION_KIND } from 'enum';
@@ -113,7 +113,7 @@ import { OPERATION_KIND } from 'enum';
 const authStore = useAuthStore();
 const form = ref<HTMLFormElement>();
 
-const newCategoryUser = ref<UserCategory>({
+const newCategoryUser = ref<CategoryUser>({
   name: '',
   kind: 2,
   color: '#ffffff',
@@ -139,7 +139,7 @@ const onSubmit = async () => {
   form?.value?.validate().then(async (success: boolean) => {
     if (success) {
       await operationStore
-        .createUserCategory(newCategoryUser.value)
+        .createCategoryUser(newCategoryUser.value)
         .then(async () => {
           clearInput();
           form?.value?.resetValidation();
@@ -149,9 +149,9 @@ const onSubmit = async () => {
 };
 
 const incomeCategoryUser = computed(() => {
-  return operationStore.userCategory?.filter((c) => c.kind === 1);
+  return operationStore.categoryUser?.filter((c) => c.kind === 1);
 });
 const expenseCategoryUser = computed(() => {
-  return operationStore.userCategory?.filter((c) => c.kind === 2);
+  return operationStore.categoryUser?.filter((c) => c.kind === 2);
 });
 </script>

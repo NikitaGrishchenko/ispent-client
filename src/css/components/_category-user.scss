@@ -1,0 +1,20 @@
+@charset 'UTF-8';
+
+body.body--dark {
+  .category-user {
+    &__line {
+      &:hover .inline-button {
+        opacity: 1;
+      }
+      padding: 7px 10px;
+      border-radius: 2px;
+      &__date {
+        font-size: 0.75rem;
+        color: $gray;
+      }
+      &:hover {
+        background-color: $dark-accent;
+      }
+    }
+  }
+}
