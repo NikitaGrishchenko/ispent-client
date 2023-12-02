@@ -12,7 +12,7 @@
           flat
           label="Cancel"
           color="primary"
-          @click="emit('close-delete-dialog')"
+          @click="emit('close-dialog')"
         />
         <q-btn flat label="Delete" color="negative" @click="confirmDelete()" />
       </q-card-actions>
@@ -34,7 +34,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits<{
-  (e: 'close-delete-dialog'): void;
+  (e: 'close-dialog'): void;
 }>();
 
 const showDialog = computed(() => props.isOpenDialog);
@@ -42,7 +42,7 @@ const showDialog = computed(() => props.isOpenDialog);
 const confirmDelete = async () => {
   if (!props.categoryUser?.id) return;
   await operationStore.deleteCategoryUser(props.categoryUser?.id).then(() => {
-    emit('close-delete-dialog');
+    emit('close-dialog');
   });
 };
 </script>

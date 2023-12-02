@@ -83,11 +83,17 @@
           <template v-for="category in expenseCategoryUser" :key="category.id">
             <CategoryUserItem :category-user="category" />
           </template>
+          <template v-if="expenseCategoryUser?.length == 0">
+            <div class="text-center q-my-md">Nothing added</div>
+          </template>
         </div>
         <div class="card">
           <p class="card__title">Income categories</p>
           <template v-for="category in incomeCategoryUser" :key="category.id">
             <CategoryUserItem :category-user="category" />
+          </template>
+          <template v-if="incomeCategoryUser?.length == 0">
+            <div class="text-center q-my-md">Nothing added</div>
           </template>
         </div>
       </div>

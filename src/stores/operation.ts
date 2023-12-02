@@ -27,7 +27,7 @@ export const useOperationStore = defineStore('operationStore', {
       const data = await api<CategoryUser[]>(
         {
           method: 'get',
-          url: 'operation/categories/',
+          url: 'operation/category/list/',
         },
         true
       );
@@ -64,11 +64,34 @@ export const useOperationStore = defineStore('operationStore', {
         const indexDeletedItem = this.categoryUser
           ?.map((i) => i.id)
           .indexOf(responce.id);
-        if (indexDeletedItem) {
-          this.categoryUser?.splice(indexDeletedItem, 1);
-        }
+        this.categoryUser?.splice(indexDeletedItem!, 1);
         Notify.create({
           message: 'The category user has been deleted',
+          color: 'positive',
+          position: 'top-right',
+          icon: 'check_circle_outline',
+        });
+      });
+    },
+    async updateCategoryUser(data: CategoryUser) {
+      await api<CategoryUser>(
+        {
+          method: 'put',
+          url: 'operation/category/update/',
+          data: data,
+        },
+        false
+      ).then((responce: CategoryUser) => {
+        this.categoryUser?.map((i) =>
+          i.id === responce.id
+            ? ((i.name = responce.name),
+              (i.color = responce.color),
+              (i.icon = responce.icon),
+              (i.kind = responce.kind))
+            : i
+        );
+        Notify.create({
+          message: 'The category user has been updated',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',

@@ -36,12 +36,12 @@
   <DialogOperationUpdate
     :operation="props.operation"
     :is-open-dialog="openDialogUpdate"
-    @close-update-dialog="openDialogUpdate = false"
+    @close-dialog="openDialogUpdate = false"
   />
   <DialogOperationDelete
     :operation="props.operation"
     :is-open-dialog="openDialogDelete"
-    @close-delete-dialog="openDialogDelete = false"
+    @close-dialog="openDialogDelete = false"
   />
 </template>
 

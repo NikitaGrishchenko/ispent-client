@@ -46,7 +46,7 @@
             label="Cancel"
             v-close-popup
             @click="
-              emit('close-update-dialog');
+              emit('close-dialog');
               setDefaultValues();
             "
           />
@@ -80,7 +80,7 @@ const form = ref<HTMLFormElement>();
 const filteringCategoryUser = ref<CategoryUser[]>();
 
 const emit = defineEmits<{
-  (e: 'close-update-dialog'): void;
+  (e: 'close-dialog'): void;
 }>();
 
 const categoryUser = ref<CategoryUser>();
@@ -112,7 +112,7 @@ const onSubmit = async () => {
       };
       await updateUserOperation(data).then(async () => {
         await operationStore.getUserOverview();
-        emit('close-update-dialog');
+        emit('close-dialog');
       });
     }
   });
