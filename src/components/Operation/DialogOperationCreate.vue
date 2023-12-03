@@ -3,6 +3,7 @@
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">New operation</div>
+        {{ date }}
       </q-card-section>
       <q-form ref="form" @submit="onSubmit">
         <q-card-section class="q-pt-none">
@@ -32,6 +33,34 @@
             :rules="[(val) => val || 'Please select a category']"
             input-debounce="0"
           />
+          <q-input
+            filled
+            v-model="date"
+            mask="##.##.####"
+            :rules="[(val) => val.length > 8 || 'Please select a date']"
+          >
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date
+                    :options="optionsDateCalendar"
+                    today-btn
+                    v-model="date"
+                    first-day-of-week="1"
+                    mask="DD.MM.YYYY"
+                  >
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
           <q-input
             filled
             v-model="comment"
@@ -64,6 +93,7 @@ import { useOperation } from 'composables';
 import { CategoryUser, UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
 import { OPERATION_KIND } from 'enum';
+import { DateTime } from 'luxon';
 
 const authStore = useAuthStore();
 const operationStore = useOperationStore();
@@ -82,15 +112,27 @@ const form = ref<HTMLFormElement>();
 const filteringCategoryUser = ref<CategoryUser[]>();
 
 const selectedCategory = ref<CategoryUser>();
+
+const getTodayDate = () => {
+  return DateTime.now().toFormat('dd.LL.yyyy');
+};
+
+const optionsDateCalendar = (date: string) => {
+  const today = DateTime.now().toFormat('yyyy/LL/dd');
+  return date <= today;
+};
+
 const kind = ref<number>(2);
 const amount = ref<number>();
 const comment = ref<string>('');
+const date = ref<string>(getTodayDate());
 
 const clearInput = () => {
   selectedCategory.value = undefined;
   amount.value = undefined;
   comment.value = '';
   kind.value = 2;
+  date.value = getTodayDate();
 };
 
 const onSubmit = async () => {
@@ -101,7 +143,7 @@ const onSubmit = async () => {
         categoryUserId: selectedCategory.value?.id as number,
         amount: amount.value as number,
         kind: kind.value,
-        date: Date.now(),
+        date: date.value,
         comment: comment.value,
       };
 

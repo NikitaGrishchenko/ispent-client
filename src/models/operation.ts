@@ -18,6 +18,7 @@ export interface CategoryUserUpdate {
   color: string | undefined;
   icon: string | undefined;
   kind: kindOperationEnum | undefined;
+  date: string;
 }
 
 export interface UserOperation {
@@ -27,7 +28,7 @@ export interface UserOperation {
   categoryUser?: CategoryUser;
   kind: number;
   amount: number;
-  date?: number;
+  date: string;
   comment: string;
 }
 

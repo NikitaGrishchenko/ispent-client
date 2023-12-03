@@ -25,12 +25,10 @@ import { computed } from 'vue';
 import { useOperation } from 'composables';
 import { UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
-import { useQuasar } from 'quasar';
 import { type PropType } from 'vue';
 
 const operationStore = useOperationStore();
 const { deleteUserOperation } = useOperation();
-const $q = useQuasar();
 
 const props = defineProps({
   isOpenDialog: Boolean,
