@@ -84,7 +84,7 @@
   <div>
     <DialogChoiceIconCategory
       :is-open-dialog="openDialogChoiceIconCategory"
-      :current-icon="props.categoryUser.icon"
+      :current-icon="props.categoryUser?.icon"
       @close-dialog="openDialogChoiceIconCategory = false"
       @pick-icon="(name: string) => (updateCategoryUser.icon = name)"
     />
@@ -93,7 +93,7 @@
 
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue';
-import { CategoryUser } from 'models';
+import { CategoryUser, CategoryUserUpdate } from 'models';
 import { useOperationStore } from 'src/stores/operation';
 import { type PropType } from 'vue';
 import { OPERATION_KIND } from 'enum';
@@ -114,7 +114,7 @@ const emit = defineEmits<{
   (e: 'close-dialog'): void;
 }>();
 
-const updateCategoryUser = ref<CategoryUser>({
+const updateCategoryUser = ref<CategoryUserUpdate>({
   id: undefined,
   name: undefined,
   kind: undefined,

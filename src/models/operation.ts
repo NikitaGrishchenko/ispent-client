@@ -11,6 +11,14 @@ export interface CategoryUser {
   icon: string;
   kind: kindOperationEnum;
 }
+export interface CategoryUserUpdate {
+  id: number | undefined;
+  userId: number | undefined;
+  name: string | undefined;
+  color: string | undefined;
+  icon: string | undefined;
+  kind: kindOperationEnum | undefined;
+}
 
 export interface UserOperation {
   id?: number;

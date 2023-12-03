@@ -37,7 +37,7 @@ export default route(function () {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  Router.beforeEach(async (to, from) => {
+  Router.beforeEach(async (to) => {
     const authStore = useAuthStore();
 
     if (!Cookies.has('ispent-jwt')) {

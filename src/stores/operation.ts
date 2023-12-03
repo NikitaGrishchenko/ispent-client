@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { OperationState } from 'src/models/operation';
-import { UserOverview, CategoryUser } from 'models';
+import { UserOverview, CategoryUser, CategoryUserUpdate } from 'models';
 import { useApi } from 'composables';
 import { Notify } from 'quasar';
 
@@ -73,7 +73,7 @@ export const useOperationStore = defineStore('operationStore', {
         });
       });
     },
-    async updateCategoryUser(data: CategoryUser) {
+    async updateCategoryUser(data: CategoryUserUpdate) {
       await api<CategoryUser>(
         {
           method: 'put',

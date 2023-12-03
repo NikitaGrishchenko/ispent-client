@@ -1,33 +1,28 @@
 import { ref } from 'vue';
 import { api as apiAxios } from 'boot/axios';
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, AxiosError } from 'axios';
 import { LoadingBar, Notify } from 'quasar';
 
 export const isLoading = ref<boolean>(false);
 
-export function useApi() {
-  //   const api = async <T>(
-  //     options: AxiosRequestConfig,
-  //     showIndicator: boolean
-  //   ) => {
-  //     isLoading.value = true;
-  //     if (showIndicator) LoadingBar.start();
-  //     try {
-  //       const response = await apiAxios(options);
-  //       return <T>response.data;
-  //     } catch (error) {
-  //       //   console.error(error);
-  //       Notify.create({
-  //         message: `Server error: ${(error as Error).message}`,
-  //         color: 'negative',
-  //         position: 'top-right',
-  //       });
-  //     } finally {
-  //       isLoading.value = false;
-  //       if (showIndicator) LoadingBar.stop();
-  //     }
-  //   };
+type ServerErrorData = {
+  [key: string]: string;
+};
 
+function isAxiosError(
+  candidate: unknown
+): candidate is AxiosError<ServerErrorData> {
+  if (
+    candidate &&
+    typeof candidate === 'object' &&
+    'isAxiosError' in candidate
+  ) {
+    return true;
+  }
+  return false;
+}
+
+export function useApi() {
   const api = async <T>(
     options: AxiosRequestConfig,
     showIndicator: boolean
@@ -38,13 +33,23 @@ export function useApi() {
       try {
         const response = await apiAxios(options);
         resolve(<T>response.data);
-      } catch (error) {
-        Notify.create({
-          message: `Server error: ${(error as Error).message}`,
-          color: 'negative',
-          position: 'top-right',
-        });
-        reject(error);
+      } catch (error: unknown) {
+        if (isAxiosError(error)) {
+          Notify.create({
+            message: `<span style="font-size: 12px;">Status error: ${
+              error.response?.status
+            }</span> <br/> <strong>${
+              error.response?.data && error.response?.data?.detail
+                ? error.response?.data?.detail
+                : 'ee'
+            }</strong>`,
+            color: 'negative',
+            position: 'top-right',
+            html: true,
+            icon: 'error',
+          });
+          reject(error);
+        }
       } finally {
         isLoading.value = false;
         if (showIndicator) LoadingBar.stop();
