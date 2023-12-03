@@ -97,7 +97,7 @@ import { CategoryUser, CategoryUserUpdate } from 'models';
 import { useOperationStore } from 'src/stores/operation';
 import { type PropType } from 'vue';
 import { OPERATION_KIND } from 'enum';
-import DialogChoiceIconCategory from 'components/DialogChoiceIconCategory.vue';
+import DialogChoiceIconCategory from 'components/Dialog/DialogChoiceIconCategory.vue';
 
 const operationStore = useOperationStore();
 const form = ref<HTMLFormElement>();

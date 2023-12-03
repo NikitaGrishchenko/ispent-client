@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useOperationStore } from 'src/stores/operation';
-import AppOperation from 'components/AppOperation.vue';
+import AppOperation from 'components/Operation/AppOperation.vue';
 
 const operationStore = useOperationStore();
 

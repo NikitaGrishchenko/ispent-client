@@ -50,8 +50,8 @@ import { ref } from 'vue';
 import { UserOperation } from 'models';
 import { type PropType } from 'vue';
 import { date } from 'quasar';
-import DialogOperationUpdate from 'components/DialogOperationUpdate.vue';
-import DialogOperationDelete from 'components/DialogOperationDelete.vue';
+import DialogOperationUpdate from 'components/Operation/DialogOperationUpdate.vue';
+import DialogOperationDelete from 'components/Operation/DialogOperationDelete.vue';
 import AppInlineButton from 'components/AppInlineButton.vue';
 
 const props = defineProps({

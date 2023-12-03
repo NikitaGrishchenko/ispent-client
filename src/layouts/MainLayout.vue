@@ -54,8 +54,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import DialogOperationCreate from 'components/DialogOperationCreate.vue';
-import DialogExitConfirmation from 'components/DialogExitConfirmation.vue';
+import DialogOperationCreate from 'components/Operation/DialogOperationCreate.vue';
+import DialogExitConfirmation from 'components/Dialog/DialogExitConfirmation.vue';
 import { useOperationStore } from 'src/stores/operation';
 
 const operationStore = useOperationStore();

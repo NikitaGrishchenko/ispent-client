@@ -112,7 +112,7 @@ import { ref, computed } from 'vue';
 import { CategoryUser } from 'models';
 import { useOperationStore } from 'src/stores/operation';
 import CategoryUserItem from 'components/CategoryUser/CategoryUserItem.vue';
-import DialogChoiceIconCategory from 'components/DialogChoiceIconCategory.vue';
+import DialogChoiceIconCategory from 'components/Dialog/DialogChoiceIconCategory.vue';
 import { useAuthStore } from 'src/stores/auth';
 import { OPERATION_KIND } from 'enum';
 
