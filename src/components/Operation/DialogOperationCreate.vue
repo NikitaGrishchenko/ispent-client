@@ -3,7 +3,6 @@
     <q-card style="min-width: 350px">
       <q-card-section>
         <div class="text-h6">New operation</div>
-        {{ date }}
       </q-card-section>
       <q-form ref="form" @submit="onSubmit">
         <q-card-section class="q-pt-none">
