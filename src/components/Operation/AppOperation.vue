@@ -13,7 +13,7 @@
           {{ operation?.categoryUser?.name }}
         </p>
         <p class="operation__date">
-          {{ date.formatDate(operation?.date, 'DD MMMM') }}
+          {{ date.formatDate(operation?.date, 'D MMMM') }}
         </p>
       </div>
     </div>

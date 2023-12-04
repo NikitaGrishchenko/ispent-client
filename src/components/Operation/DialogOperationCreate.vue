@@ -97,7 +97,8 @@ import { DateTime } from 'luxon';
 
 const authStore = useAuthStore();
 const operationStore = useOperationStore();
-const { createUserOperation } = useOperation();
+const { createUserOperation, optionsDateCalendar, getTodayDateForCalendar } =
+  useOperation();
 
 const props = defineProps({
   isOpenDialog: Boolean,
@@ -113,26 +114,17 @@ const filteringCategoryUser = ref<CategoryUser[]>();
 
 const selectedCategory = ref<CategoryUser>();
 
-const getTodayDate = () => {
-  return DateTime.now().toFormat('dd.LL.yyyy');
-};
-
-const optionsDateCalendar = (date: string) => {
-  const today = DateTime.now().toFormat('yyyy/LL/dd');
-  return date <= today;
-};
-
 const kind = ref<number>(2);
 const amount = ref<number>();
 const comment = ref<string>('');
-const date = ref<string>(getTodayDate());
+const date = ref<string>(getTodayDateForCalendar());
 
 const clearInput = () => {
   selectedCategory.value = undefined;
   amount.value = undefined;
   comment.value = '';
   kind.value = 2;
-  date.value = getTodayDate();
+  date.value = getTodayDateForCalendar();
 };
 
 const onSubmit = async () => {
@@ -143,7 +135,7 @@ const onSubmit = async () => {
         categoryUserId: selectedCategory.value?.id as number,
         amount: amount.value as number,
         kind: kind.value,
-        date: date.value,
+        date: `${DateTime.fromFormat(date.value, 'dd.LL.yyyy')}`,
         comment: comment.value,
       };
 

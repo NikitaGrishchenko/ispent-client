@@ -34,6 +34,34 @@
           />
           <q-input
             filled
+            v-model="date"
+            mask="##.##.####"
+            :rules="[(val) => val.length > 8 || 'Please select a date']"
+          >
+            <template v-slot:append>
+              <q-icon name="event" class="cursor-pointer">
+                <q-popup-proxy
+                  cover
+                  transition-show="scale"
+                  transition-hide="scale"
+                >
+                  <q-date
+                    :options="optionsDateCalendar"
+                    today-btn
+                    v-model="date"
+                    first-day-of-week="1"
+                    mask="DD.MM.YYYY"
+                  >
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="Close" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+          <q-input
+            filled
             v-model="comment"
             label="Comment"
             class="q-field--with-bottom"
@@ -65,9 +93,11 @@ import { type PropType } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useOperationStore } from 'src/stores/operation';
 import { OPERATION_KIND } from 'enum';
+import { DateTime } from 'luxon';
 
 const authStore = useAuthStore();
-const { updateUserOperation } = useOperation();
+const { updateUserOperation, optionsDateCalendar, fromISOToCalendarFormat } =
+  useOperation();
 const operationStore = useOperationStore();
 
 const props = defineProps({
@@ -87,6 +117,7 @@ const categoryUser = ref<CategoryUser>();
 const kind = ref<number>();
 const amount = ref<number>();
 const comment = ref<string>('');
+const date = ref<string>();
 
 const showDialog = computed(() => props.isOpenDialog);
 
@@ -96,6 +127,7 @@ const setDefaultValues = () => {
     kind.value = props.operation?.kind;
     amount.value = props.operation?.amount;
     comment.value = props.operation?.comment;
+    date.value = fromISOToCalendarFormat(props.operation?.date);
   }
 };
 
@@ -109,6 +141,7 @@ const onSubmit = async () => {
         amount: amount.value as number,
         kind: Number(kind.value),
         comment: comment.value,
+        date: `${DateTime.fromFormat(date.value!, 'dd.LL.yyyy')}`,
       };
       await updateUserOperation(data).then(async () => {
         await operationStore.getUserOverview();

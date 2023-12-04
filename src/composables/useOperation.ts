@@ -1,6 +1,7 @@
 import { UserOperation } from 'models';
 import { useApi } from 'composables';
 import { Notify } from 'quasar';
+import { DateTime } from 'luxon';
 
 const { api } = useApi();
 
@@ -57,10 +58,23 @@ export function useOperation() {
       });
     });
   };
-
+  const optionsDateCalendar = (date: string) => {
+    const today = DateTime.now().toFormat('yyyy/LL/dd');
+    return date <= today;
+  };
+  const getTodayDateForCalendar = () => {
+    return DateTime.now().toFormat('dd.LL.yyyy');
+  };
+  const fromISOToCalendarFormat = (inputDate: string) => {
+    const date = DateTime.fromISO(inputDate);
+    return `${date.toFormat('dd.LL.yyyy')}`;
+  };
   return {
     createUserOperation,
     deleteUserOperation,
     updateUserOperation,
+    optionsDateCalendar,
+    getTodayDateForCalendar,
+    fromISOToCalendarFormat,
   };
 }
