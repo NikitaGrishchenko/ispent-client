@@ -1,4 +1,4 @@
-import { UserOperation } from 'models';
+import { UserOperation, UserOperationByPeriod } from 'models';
 import { useApi } from 'composables';
 import { Notify } from 'quasar';
 import { DateTime } from 'luxon';
@@ -69,6 +69,15 @@ export function useOperation() {
     const date = DateTime.fromISO(inputDate);
     return `${date.toFormat('dd.LL.yyyy')}`;
   };
+  const getOperationsByPeriodOfTime = async () => {
+    return await api<UserOperationByPeriod[]>(
+      {
+        method: 'get',
+        url: 'operation/list/',
+      },
+      false
+    );
+  };
   return {
     createUserOperation,
     deleteUserOperation,
@@ -76,5 +85,6 @@ export function useOperation() {
     optionsDateCalendar,
     getTodayDateForCalendar,
     fromISOToCalendarFormat,
+    getOperationsByPeriodOfTime,
   };
 }

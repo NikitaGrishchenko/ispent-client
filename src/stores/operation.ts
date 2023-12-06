@@ -18,7 +18,7 @@ export const useOperationStore = defineStore('operationStore', {
           method: 'get',
           url: 'user/overview/',
         },
-        true
+        false
       );
       this.userOverview = data;
     },

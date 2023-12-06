@@ -32,6 +32,11 @@ export interface UserOperation {
   comment: string;
 }
 
+export interface UserOperationByPeriod {
+  date: string;
+  operations: UserOperation[];
+}
+
 export interface UserOverview {
   totalBalance: number;
   totalIncome: number;
