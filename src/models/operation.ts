@@ -33,8 +33,10 @@ export interface UserOperation {
 }
 
 export interface UserOperationByPeriod {
+  id: number;
   date: string;
   operations: UserOperation[];
+  total: number;
 }
 
 export interface UserOverview {

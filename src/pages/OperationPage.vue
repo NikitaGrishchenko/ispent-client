@@ -3,11 +3,14 @@
     <div class="row">
       <div class="col">
         <div class="card">
-          <p class="card__title">Operations</p>
-          <div v-for="day in operationsByPeriod" :key="day.date">
-            {{ day.date }}
+          <p class="card__title q-mb-md">Operations</p>
+          <div v-for="day in operationsByPeriod" :key="day.id">
+            <div class="flex">
+              <p>{{ date.formatDate(day.date, 'D MMMM').toLowerCase() }}</p>
+              <p>{{ day.total }}</p>
+            </div>
             <template v-for="operation in day.operations" :key="operation.id">
-              <AppOperation :operation="operation" />
+              <AppOperation :operation="operation" :hide-date="true" />
             </template>
           </div>
         </div>
@@ -21,6 +24,7 @@ import { useOperation } from 'composables';
 import { ref, onMounted, computed, watch } from 'vue';
 import { UserOperation, UserOperationByPeriod } from 'models';
 import AppOperation from 'components/Operation/AppOperation.vue';
+import { date } from 'quasar';
 
 const operationsByPeriod = ref<UserOperationByPeriod[]>();
 

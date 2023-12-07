@@ -134,7 +134,9 @@ const onSubmit = async () => {
         categoryUserId: selectedCategory.value?.id as number,
         amount: amount.value as number,
         kind: kind.value,
-        date: `${DateTime.fromFormat(date.value, 'dd.LL.yyyy')}`,
+        date: `${DateTime.fromFormat(date.value, 'dd.LL.yyyy', {
+          zone: 'utc',
+        })}`,
         comment: comment.value,
       };
 

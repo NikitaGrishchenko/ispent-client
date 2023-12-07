@@ -12,8 +12,8 @@
         <p class="operation__category-name">
           {{ operation?.categoryUser?.name }}
         </p>
-        <p class="operation__date">
-          {{ date.formatDate(operation?.date, 'D MMMM') }}
+        <p v-if="!hideDate" class="operation__date">
+          {{ date.formatDate(operation?.date, 'D MMMM').toLowerCase() }}
         </p>
       </div>
     </div>
@@ -56,6 +56,7 @@ import AppInlineButton from 'components/AppInlineButton.vue';
 
 const props = defineProps({
   operation: Object as PropType<UserOperation>,
+  hideDate: Boolean,
 });
 
 const openDialogDelete = ref(false);

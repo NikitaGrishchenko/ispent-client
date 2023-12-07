@@ -141,7 +141,9 @@ const onSubmit = async () => {
         amount: amount.value as number,
         kind: Number(kind.value),
         comment: comment.value,
-        date: `${DateTime.fromFormat(date.value!, 'dd.LL.yyyy')}`,
+        date: `${DateTime.fromFormat(date.value!, 'dd.LL.yyyy', {
+          zone: 'utc',
+        })}`,
       };
       await updateUserOperation(data).then(async () => {
         await operationStore.getUserOverview();
