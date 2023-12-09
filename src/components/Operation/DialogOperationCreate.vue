@@ -88,7 +88,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
-import { useOperation } from 'composables';
+import { useData } from 'composables';
 import { CategoryUser, UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
 import { OPERATION_KIND } from 'enum';
@@ -96,8 +96,7 @@ import { DateTime } from 'luxon';
 
 const authStore = useAuthStore();
 const operationStore = useOperationStore();
-const { createUserOperation, optionsDateCalendar, getTodayDateForCalendar } =
-  useOperation();
+const { optionsDateCalendar, getTodayDateForCalendar } = useData();
 
 const props = defineProps({
   isOpenDialog: Boolean,
@@ -141,7 +140,7 @@ const onSubmit = async () => {
         comment: comment.value,
       };
 
-      await createUserOperation(data).then(async () => {
+      await operationStore.createUserOperation(data).then(async () => {
         clearInput();
         form?.value?.resetValidation();
         emit('update');

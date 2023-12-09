@@ -1,3 +1,3 @@
-export * from './useOperation';
+export * from './useData';
 export * from './useAuth';
 export * from './useApi';

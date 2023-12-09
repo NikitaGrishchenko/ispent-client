@@ -1,6 +1,12 @@
 import { defineStore } from 'pinia';
 import type { OperationState } from 'src/models/operation';
-import { UserOverview, CategoryUser, CategoryUserUpdate } from 'models';
+import {
+  UserOverview,
+  CategoryUser,
+  CategoryUserUpdate,
+  UserOperationByPeriod,
+  UserOperation,
+} from 'models';
 import { useApi } from 'composables';
 import { Notify } from 'quasar';
 
@@ -10,6 +16,7 @@ export const useOperationStore = defineStore('operationStore', {
   state: (): OperationState => ({
     userOverview: undefined as UserOverview | undefined,
     categoryUser: undefined as CategoryUser[] | undefined,
+    operations: undefined as UserOperationByPeriod[] | undefined,
   }),
   actions: {
     async getUserOverview() {
@@ -92,6 +99,86 @@ export const useOperationStore = defineStore('operationStore', {
         );
         Notify.create({
           message: 'The category user has been updated',
+          color: 'positive',
+          position: 'top-right',
+          icon: 'check_circle_outline',
+        });
+      });
+    },
+    async getOperationsByPeriodOfTime() {
+      this.operations = await api<UserOperationByPeriod[]>(
+        {
+          method: 'get',
+          url: 'operation/list/',
+        },
+        false
+      );
+    },
+    async createUserOperation(data: UserOperation) {
+      await api<UserOperation>(
+        {
+          method: 'post',
+          url: 'operation/create/',
+          data: data,
+        },
+        false
+      ).then(async () => {
+        const current_path = this.router.currentRoute.value.name;
+        if (current_path === 'Overview') {
+          await this.getUserOverview();
+        }
+        if (current_path === 'Operations') {
+          await this.getOperationsByPeriodOfTime();
+        }
+        Notify.create({
+          message: 'The operation has been created',
+          color: 'positive',
+          position: 'top-right',
+          icon: 'check_circle_outline',
+        });
+      });
+    },
+    async updateUserOperation(data: UserOperation) {
+      await api<UserOperation[]>(
+        {
+          method: 'put',
+          url: 'operation/update/',
+          data: data,
+        },
+        false
+      ).then(async () => {
+        const current_path = this.router.currentRoute.value.name;
+        if (current_path === 'Overview') {
+          await this.getUserOverview();
+        }
+        if (current_path === 'Operations') {
+          await this.getOperationsByPeriodOfTime();
+        }
+        Notify.create({
+          message: 'The operation has been updated',
+          color: 'positive',
+          position: 'top-right',
+          icon: 'check_circle_outline',
+        });
+      });
+    },
+    async deleteUserOperation(id_operation: number) {
+      await api<UserOperation[]>(
+        {
+          method: 'delete',
+          url: `operation/delete/${id_operation}`,
+        },
+        false
+      ).then(async () => {
+        const current_path = this.router.currentRoute.value.name;
+        if (current_path === 'Overview') {
+          await this.getUserOverview();
+        }
+        if (current_path === 'Operations') {
+          await this.getOperationsByPeriodOfTime();
+        }
+        Notify.create({
+          message: 'The operation has been deleted',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',

@@ -49,4 +49,5 @@ export interface UserOverview {
 export interface OperationState {
   userOverview: UserOverview | undefined;
   categoryUser: CategoryUser[] | undefined;
+  operations: UserOperationByPeriod[] | undefined;
 }

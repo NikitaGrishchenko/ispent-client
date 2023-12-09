@@ -87,7 +87,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
-import { useOperation } from 'composables';
+import { useData } from 'composables';
 import { CategoryUser, UserOperation } from 'models';
 import { type PropType } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
@@ -96,8 +96,7 @@ import { OPERATION_KIND } from 'enum';
 import { DateTime } from 'luxon';
 
 const authStore = useAuthStore();
-const { updateUserOperation, optionsDateCalendar, fromISOToCalendarFormat } =
-  useOperation();
+const { optionsDateCalendar, fromISOToCalendarFormat } = useData();
 const operationStore = useOperationStore();
 
 const props = defineProps({
@@ -146,7 +145,7 @@ const onSubmit = async () => {
           zone: 'utc',
         })}`,
       };
-      await updateUserOperation(data).then(async () => {
+      await operationStore.updateUserOperation(data).then(async () => {
         emit('close-dialog');
         emit('update');
       });

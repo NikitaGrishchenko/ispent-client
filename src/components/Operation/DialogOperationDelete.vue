@@ -22,11 +22,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useOperation } from 'composables';
 import { UserOperation } from 'models';
 import { type PropType } from 'vue';
+import { useOperationStore } from 'src/stores/operation';
 
-const { deleteUserOperation } = useOperation();
+const operationStore = useOperationStore();
 
 const props = defineProps({
   isOpenDialog: Boolean,
@@ -42,7 +42,7 @@ const showDialog = computed(() => props.isOpenDialog);
 
 const deleteOperation = async () => {
   if (!props.operation?.id) return;
-  await deleteUserOperation(props.operation?.id).then(() => {
+  await operationStore.deleteUserOperation(props.operation?.id).then(() => {
     emit('close-dialog');
     emit('update');
   });

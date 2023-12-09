@@ -4,14 +4,10 @@
       <div class="col">
         <div class="card">
           <p class="card__title q-mb-md">Operations</p>
-          <template v-if="operationsByPeriod?.length == 0">
+          <template v-if="operations?.length == 0">
             <div class="text-center q-my-md">Nothing added</div>
           </template>
-          <div
-            v-for="day in operationsByPeriod"
-            :key="day.id"
-            class="operation__day"
-          >
+          <div v-for="day in operations" :key="day.id" class="operation__day">
             <div class="flex justify-between operation__day-title">
               <p>{{ date.formatDate(day.date, 'D MMMM').toLowerCase() }}</p>
               <p v-if="day.operations.length > 1" class="text-grey">
@@ -19,11 +15,7 @@
               </p>
             </div>
             <template v-for="operation in day.operations" :key="operation.id">
-              <AppOperation
-                :operation="operation"
-                :hide-date="true"
-                @update="getOperations"
-              />
+              <AppOperation :operation="operation" :hide-date="true" />
             </template>
           </div>
         </div>
@@ -33,21 +25,16 @@
 </template>
 
 <script setup lang="ts">
-import { useOperation } from 'composables';
-import { ref, onMounted } from 'vue';
-import { UserOperationByPeriod } from 'models';
+import { onMounted, computed } from 'vue';
 import AppOperation from 'components/Operation/AppOperation.vue';
 import { date } from 'quasar';
+import { useOperationStore } from 'src/stores/operation';
 
-const operationsByPeriod = ref<UserOperationByPeriod[]>();
+const operationStore = useOperationStore();
 
-const { getOperationsByPeriodOfTime } = useOperation();
-
-const getOperations = async () => {
-  operationsByPeriod.value = await getOperationsByPeriodOfTime();
-};
+const operations = computed(() => operationStore.operations);
 
 onMounted(async () => {
-  await getOperations();
+  await operationStore.getOperationsByPeriodOfTime();
 });
 </script>
