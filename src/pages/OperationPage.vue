@@ -11,7 +11,7 @@
             <div class="flex justify-between operation__day-title">
               <p>{{ date.formatDate(day.date, 'D MMMM').toLowerCase() }}</p>
               <p v-if="day.operations.length > 1" class="text-grey">
-                {{ day.total }} ₽
+                {{ day.total }} <span class="sign-ruble">₽</span>
               </p>
             </div>
             <template v-for="operation in day.operations" :key="operation.id">

@@ -4,7 +4,8 @@
       <div flat class="card">
         <p class="card__title">Balance</p>
         <div class="overview__card-total">
-          {{ operationStore?.userOverview?.totalBalance }} ₽
+          {{ operationStore?.userOverview?.totalBalance }}
+          <span class="sign-ruble--large">₽</span>
         </div>
       </div>
     </div>
@@ -12,7 +13,8 @@
       <div flat class="card">
         <p class="card__title">Total income</p>
         <div class="overview__card-total">
-          {{ operationStore?.userOverview?.totalIncome }} ₽
+          {{ operationStore?.userOverview?.totalIncome }}
+          <span class="sign-ruble--large">₽</span>
         </div>
       </div>
     </div>
@@ -20,7 +22,8 @@
       <div flat class="card">
         <p class="card__title">Total expenses</p>
         <div class="overview__card-total">
-          {{ operationStore?.userOverview?.totalExpenses }} ₽
+          {{ operationStore?.userOverview?.totalExpenses }}
+          <span class="sign-ruble--large">₽</span>
         </div>
       </div>
     </div>

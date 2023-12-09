@@ -123,13 +123,7 @@ export const useOperationStore = defineStore('operationStore', {
         },
         false
       ).then(async () => {
-        const current_path = this.router.currentRoute.value.name;
-        if (current_path === 'Overview') {
-          await this.getUserOverview();
-        }
-        if (current_path === 'Operations') {
-          await this.getOperationsByPeriodOfTime();
-        }
+        this.updateDataStore();
         Notify.create({
           message: 'The operation has been created',
           color: 'positive',
@@ -147,13 +141,7 @@ export const useOperationStore = defineStore('operationStore', {
         },
         false
       ).then(async () => {
-        const current_path = this.router.currentRoute.value.name;
-        if (current_path === 'Overview') {
-          await this.getUserOverview();
-        }
-        if (current_path === 'Operations') {
-          await this.getOperationsByPeriodOfTime();
-        }
+        this.updateDataStore();
         Notify.create({
           message: 'The operation has been updated',
           color: 'positive',
@@ -170,13 +158,7 @@ export const useOperationStore = defineStore('operationStore', {
         },
         false
       ).then(async () => {
-        const current_path = this.router.currentRoute.value.name;
-        if (current_path === 'Overview') {
-          await this.getUserOverview();
-        }
-        if (current_path === 'Operations') {
-          await this.getOperationsByPeriodOfTime();
-        }
+        this.updateDataStore();
         Notify.create({
           message: 'The operation has been deleted',
           color: 'positive',
@@ -184,6 +166,15 @@ export const useOperationStore = defineStore('operationStore', {
           icon: 'check_circle_outline',
         });
       });
+    },
+    async updateDataStore() {
+      const current_path = this.router.currentRoute.value.name;
+      if (current_path === 'Overview') {
+        await this.getUserOverview();
+      }
+      if (current_path === 'Operations') {
+        await this.getOperationsByPeriodOfTime();
+      }
     },
   },
 });

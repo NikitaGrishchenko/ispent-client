@@ -32,7 +32,7 @@
     >
       <p>
         <span v-if="operation?.kind === 1">+</span><span v-else>-</span
-        >{{ operation?.amount }} ₽
+        >{{ operation?.amount }} <span class="sign-ruble">₽</span>
       </p>
     </div>
   </div>
