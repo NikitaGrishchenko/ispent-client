@@ -111,6 +111,7 @@ const filteringCategoryUser = ref<CategoryUser[]>();
 
 const emit = defineEmits<{
   (e: 'close-dialog'): void;
+  (e: 'update'): void;
 }>();
 
 const categoryUser = ref<CategoryUser>();
@@ -146,8 +147,8 @@ const onSubmit = async () => {
         })}`,
       };
       await updateUserOperation(data).then(async () => {
-        await operationStore.getUserOverview();
         emit('close-dialog');
+        emit('update');
       });
     }
   });

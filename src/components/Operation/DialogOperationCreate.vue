@@ -105,6 +105,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   (e: 'close-dialog'): void;
+  (e: 'update'): void;
 }>();
 
 const form = ref<HTMLFormElement>();
@@ -143,7 +144,7 @@ const onSubmit = async () => {
       await createUserOperation(data).then(async () => {
         clearInput();
         form?.value?.resetValidation();
-        await operationStore.getUserOverview();
+        emit('update');
       });
     }
   });

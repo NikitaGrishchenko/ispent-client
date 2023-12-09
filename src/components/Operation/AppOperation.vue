@@ -30,18 +30,23 @@
       class="col-2 operation__amount text-right"
       :class="getColorAmount(operation?.kind)"
     >
-      <p>{{ operation?.amount }} ₽</p>
+      <p>
+        <span v-if="operation?.kind === 1">+</span><span v-else>-</span
+        >{{ operation?.amount }} ₽
+      </p>
     </div>
   </div>
   <DialogOperationUpdate
     :operation="props.operation"
     :is-open-dialog="openDialogUpdate"
     @close-dialog="openDialogUpdate = false"
+    @update="emit('update')"
   />
   <DialogOperationDelete
     :operation="props.operation"
     :is-open-dialog="openDialogDelete"
     @close-dialog="openDialogDelete = false"
+    @update="emit('update')"
   />
 </template>
 
@@ -54,6 +59,10 @@ import DialogOperationUpdate from 'components/Operation/DialogOperationUpdate.vu
 import DialogOperationDelete from 'components/Operation/DialogOperationDelete.vue';
 import AppInlineButton from 'components/AppInlineButton.vue';
 
+const emit = defineEmits<{
+  (e: 'update'): void;
+}>();
+
 const props = defineProps({
   operation: Object as PropType<UserOperation>,
   hideDate: Boolean,
@@ -64,6 +73,5 @@ const openDialogUpdate = ref(false);
 
 const getColorAmount = (kind: number | undefined) => {
   if (kind === 1) return 'text-positive';
-  else return 'text-negative';
 };
 </script>

@@ -35,7 +35,7 @@
             v-for="operation in operationStore?.userOverview?.lastOperations"
             :key="operation.id"
           >
-            <AppOperation :operation="operation" />
+            <AppOperation :operation="operation" @update="getData" />
           </template>
         </div>
         <div class="row" v-else>
@@ -53,7 +53,11 @@ import AppOperation from 'components/Operation/AppOperation.vue';
 
 const operationStore = useOperationStore();
 
-onMounted(async () => {
+const getData = async () => {
   await operationStore.getUserOverview();
+};
+
+onMounted(async () => {
+  await getData();
 });
 </script>

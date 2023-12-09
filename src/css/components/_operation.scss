@@ -14,5 +14,14 @@ body.body--dark {
     &:hover {
       background-color: $dark-accent;
     }
+    &__day {
+      margin-bottom: 15px;
+      padding: 8px;
+      border-radius: 3px;
+      border: 1px solid $dark-accent;
+      &-title {
+        padding: 10px 10px;
+      }
+    }
   }
 }

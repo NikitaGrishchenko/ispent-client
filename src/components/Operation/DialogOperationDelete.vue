@@ -24,10 +24,8 @@
 import { computed } from 'vue';
 import { useOperation } from 'composables';
 import { UserOperation } from 'models';
-import { useOperationStore } from 'src/stores/operation';
 import { type PropType } from 'vue';
 
-const operationStore = useOperationStore();
 const { deleteUserOperation } = useOperation();
 
 const props = defineProps({
@@ -37,6 +35,7 @@ const props = defineProps({
 
 const emit = defineEmits<{
   (e: 'close-dialog'): void;
+  (e: 'update'): void;
 }>();
 
 const showDialog = computed(() => props.isOpenDialog);
@@ -44,8 +43,8 @@ const showDialog = computed(() => props.isOpenDialog);
 const deleteOperation = async () => {
   if (!props.operation?.id) return;
   await deleteUserOperation(props.operation?.id).then(() => {
-    operationStore.getUserOverview();
     emit('close-dialog');
+    emit('update');
   });
 };
 </script>
