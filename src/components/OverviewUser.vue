@@ -29,16 +29,31 @@
     </div>
     <div class="col-7">
       <div class="card">
-        <div class="flex justify-between q-mb-md">
-          <p class="card__title">Last operation</p>
-          <p>See all</p>
-        </div>
+        <p class="card__title q-mb-md">Last operation</p>
         <div v-if="operationStore?.userOverview?.lastOperations?.length! > 0">
           <template
             v-for="operation in operationStore?.userOverview?.lastOperations"
             :key="operation.id"
           >
             <AppOperation :operation="operation" />
+          </template>
+        </div>
+        <div class="row" v-else>
+          <p class="col text-center q-pb-md">Nothing added</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="card">
+        <p class="card__title q-mb-md">Total by categories</p>
+        <div
+          v-if="operationStore?.userOverview?.totalByCategories?.length! > 0"
+        >
+          <template
+            v-for="category in operationStore?.userOverview?.totalByCategories"
+            :key="category.id"
+          >
+            <CategoryUserTotal :total-by-categories="category" />
           </template>
         </div>
         <div class="row" v-else>
@@ -53,6 +68,7 @@
 import { onMounted } from 'vue';
 import { useOperationStore } from 'src/stores/operation';
 import AppOperation from 'components/Operation/AppOperation.vue';
+import CategoryUserTotal from 'components/CategoryUser/CategoryUserTotal.vue';
 
 const operationStore = useOperationStore();
 

@@ -26,13 +26,11 @@
       <AppInlineButton icon="delete_outline" @click="openDialogDelete = true" />
       <AppInlineButton icon="edit" @click="openDialogUpdate = true" />
     </div>
-    <div
-      class="col-2 operation__amount text-right"
-      :class="getColorAmount(operation?.kind)"
-    >
+    <div class="col-2 operation__amount text-right">
       <p>
-        <span v-if="operation?.kind === 1">+</span><span v-else>-</span
-        >{{ operation?.amount }} <span class="sign-ruble">₽</span>
+        <span
+          v-html="getStyleAmountForOperation(operation?.amount!, operation?.kind!)"
+        ></span>
       </p>
     </div>
   </div>
@@ -58,6 +56,7 @@ import { date } from 'quasar';
 import DialogOperationUpdate from 'components/Operation/DialogOperationUpdate.vue';
 import DialogOperationDelete from 'components/Operation/DialogOperationDelete.vue';
 import AppInlineButton from 'components/AppInlineButton.vue';
+import { useOperation } from 'composables';
 
 const emit = defineEmits<{
   (e: 'update'): void;
@@ -68,10 +67,8 @@ const props = defineProps({
   hideDate: Boolean,
 });
 
+const { getStyleAmountForOperation } = useOperation();
+
 const openDialogDelete = ref(false);
 const openDialogUpdate = ref(false);
-
-const getColorAmount = (kind: number | undefined) => {
-  if (kind === 1) return 'text-positive';
-};
 </script>

@@ -9,9 +9,11 @@
           </template>
           <div v-for="day in operations" :key="day.id" class="operation__day">
             <div class="flex justify-between operation__day-title">
-              <p>{{ date.formatDate(day.date, 'D MMMM').toLowerCase() }}</p>
+              <p class="text-weight-bold">
+                {{ date.formatDate(day.date, 'D MMMM').toLowerCase() }}
+              </p>
               <p v-if="day.operations.length > 1" class="text-grey">
-                {{ day.total }} <span class="sign-ruble">₽</span>
+                {{ day.total }} ₽
               </p>
             </div>
             <template v-for="operation in day.operations" :key="operation.id">
@@ -29,9 +31,10 @@ import { onMounted, computed } from 'vue';
 import AppOperation from 'components/Operation/AppOperation.vue';
 import { date } from 'quasar';
 import { useOperationStore } from 'src/stores/operation';
+import { useOperation } from 'composables';
 
 const operationStore = useOperationStore();
-
+const { getStyleAmountForOperation } = useOperation();
 const operations = computed(() => operationStore.operations);
 
 onMounted(async () => {

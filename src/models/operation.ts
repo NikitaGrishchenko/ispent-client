@@ -39,11 +39,17 @@ export interface UserOperationByPeriod {
   total: number;
 }
 
+export interface TotalByCategories {
+  id: number;
+  total: number;
+  categoryUser: CategoryUser;
+}
 export interface UserOverview {
   totalBalance: number;
   totalIncome: number;
   totalExpenses: number;
   lastOperations: UserOperation[];
+  totalByCategories: TotalByCategories[];
 }
 
 export interface OperationState {

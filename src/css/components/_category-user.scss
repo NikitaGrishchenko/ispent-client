@@ -16,5 +16,9 @@ body.body--dark {
         background-color: $dark-accent;
       }
     }
+    &__total {
+      padding: 7px 10px;
+      border-radius: 2px;
+    }
   }
 }
