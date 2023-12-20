@@ -12,7 +12,7 @@ export function useAuth() {
     await api<UserCreate[]>(
       {
         method: 'post',
-        url: 'auth/register/',
+        url: 'auth/register',
         data: data,
       },
       true
