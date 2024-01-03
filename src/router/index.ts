@@ -10,15 +10,7 @@ import { Cookies } from 'quasar';
 import jwt_decode from 'jwt-decode';
 import { JWTTokenDecode } from 'src/models/auth';
 import { useAuthStore } from 'src/stores/auth';
-
-/*
- * If not building with SSR mode, you can
- * directly export the Router instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Router instance.
- */
+import _ from 'lodash';
 
 export default route(function () {
   const createHistory = process.env.SERVER
@@ -30,19 +22,16 @@ export default route(function () {
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes,
-
-    // Leave this as is and make changes in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
   Router.beforeEach(async (to) => {
     const authStore = useAuthStore();
-
     if (!Cookies.has('ispent-jwt')) {
-      if (to.meta.middleware === 'auth') {
-        Router.push('/login');
+      if (_.includes(to.meta.middleware as [], 'auth')) {
+        Router.push({
+          name: 'Login',
+        });
       }
     } else {
       if (!authStore.isAuth) {
@@ -52,8 +41,10 @@ export default route(function () {
         authStore.isAuth = true;
         authStore.idUser = token_decode.sub;
       }
-      if (to.meta.middleware === 'login') {
-        Router.push('/');
+      if (_.includes(to.meta.middleware as [], 'login')) {
+        Router.push({
+          name: 'Overview',
+        });
       }
     }
   });
