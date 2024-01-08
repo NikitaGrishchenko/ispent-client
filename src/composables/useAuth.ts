@@ -8,6 +8,16 @@ const { api } = useApi();
 export function useAuth() {
   const router = useRouter();
 
+  const confirmEmailUser = async (token: string) => {
+    await api(
+      {
+        method: 'get',
+        url: `/user/email/confirm/?token=${token}`,
+      },
+      false
+    );
+  };
+
   const createUser = async (data: UserCreate) => {
     await api<UserCreate[]>(
       {
@@ -29,5 +39,6 @@ export function useAuth() {
 
   return {
     createUser,
+    confirmEmailUser,
   };
 }

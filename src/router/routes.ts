@@ -61,6 +61,18 @@ const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  {
+    path: '/confirm',
+    meta: { middleware: ['auth'] },
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'ConfirmEmailPage',
+        component: () => import('pages/ConfirmEmailPage.vue'),
+      },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

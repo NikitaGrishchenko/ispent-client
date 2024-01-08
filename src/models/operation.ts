@@ -44,12 +44,21 @@ export interface TotalByCategories {
   total: number;
   categoryUser: CategoryUser;
 }
+
+export interface Banner {
+  id: number;
+  text: string;
+  color: string;
+  icon: string;
+}
+
 export interface UserOverview {
   totalBalance: number;
   totalIncome: number;
   totalExpenses: number;
   lastOperations: UserOperation[];
   totalByCategories: TotalByCategories[];
+  banners: Banner[];
 }
 
 export interface OperationState {

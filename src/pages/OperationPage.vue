@@ -31,10 +31,8 @@ import { onMounted, computed } from 'vue';
 import AppOperation from 'components/Operation/AppOperation.vue';
 import { date } from 'quasar';
 import { useOperationStore } from 'src/stores/operation';
-import { useOperation } from 'composables';
 
 const operationStore = useOperationStore();
-const { getStyleAmountForOperation } = useOperation();
 const operations = computed(() => operationStore.operations);
 
 onMounted(async () => {

@@ -6,6 +6,7 @@ export interface JWTTokenDecode {
 export interface AuthState {
   isAuth: boolean;
   idUser: number | null;
+  redirectAfterLogin: string | null;
 }
 
 export interface UserCreate {

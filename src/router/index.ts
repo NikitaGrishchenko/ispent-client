@@ -29,6 +29,7 @@ export default route(function () {
     const authStore = useAuthStore();
     if (!Cookies.has('ispent-jwt')) {
       if (_.includes(to.meta.middleware as [], 'auth')) {
+        authStore.redirectAfterLogin = to.fullPath;
         Router.push({
           name: 'Login',
         });

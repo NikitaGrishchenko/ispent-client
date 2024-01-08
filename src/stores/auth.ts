@@ -10,6 +10,7 @@ export const useAuthStore = defineStore('authStore', {
   state: (): AuthState => ({
     isAuth: false,
     idUser: null,
+    redirectAfterLogin: null,
   }),
   actions: {
     async userLogin(username: string, password: string) {
@@ -31,7 +32,11 @@ export const useAuthStore = defineStore('authStore', {
           );
           this.idUser = token_decode.sub;
           this.isAuth = true;
-          this.router.push({ name: 'Overview' });
+          if (this.redirectAfterLogin !== null) {
+            this.router.push(this.redirectAfterLogin);
+          } else {
+            this.router.push({ name: 'Overview' });
+          }
         })
         .catch((e) => {
           console.error(e);
