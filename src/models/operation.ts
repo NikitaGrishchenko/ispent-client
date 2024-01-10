@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 export enum kindOperationEnum {
   INCOME = 1,
   EXPENSE = 2,
@@ -65,4 +67,5 @@ export interface OperationState {
   userOverview: UserOverview | undefined;
   categoryUser: CategoryUser[] | undefined;
   operations: UserOperationByPeriod[] | undefined;
+  currentMonth: DateTime;
 }

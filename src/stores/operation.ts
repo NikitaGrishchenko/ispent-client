@@ -9,6 +9,7 @@ import {
 } from 'models';
 import { useApi } from 'composables';
 import { Notify } from 'quasar';
+import { DateTime } from 'luxon';
 
 const { api } = useApi();
 
@@ -17,6 +18,7 @@ export const useOperationStore = defineStore('operationStore', {
     userOverview: undefined as UserOverview | undefined,
     categoryUser: undefined as CategoryUser[] | undefined,
     operations: undefined as UserOperationByPeriod[] | undefined,
+    currentMonth: DateTime.now(),
   }),
   actions: {
     async getUserOverview() {
@@ -106,13 +108,33 @@ export const useOperationStore = defineStore('operationStore', {
       });
     },
     async getOperationsByPeriodOfTime() {
+      const currentMonth = this.currentMonth;
+      const startingDate = DateTime.fromFormat(
+        `${currentMonth.year}-${currentMonth.month}-01`,
+        'yyyy-M-d'
+      ).toFormat('yyyy-MM-dd');
+      const endDate = DateTime.fromFormat(
+        `${currentMonth.year}-${currentMonth.month}-${currentMonth.daysInMonth}`,
+        'yyyy-M-d'
+      ).toFormat('yyyy-MM-dd');
+
       this.operations = await api<UserOperationByPeriod[]>(
         {
           method: 'get',
           url: 'operation/list/',
+          params: {
+            starting_date: startingDate,
+            end_date: endDate,
+          },
         },
         false
       );
+    },
+    async changeCurrentMonth(count: number) {
+      this.currentMonth = this.currentMonth.plus({
+        months: count,
+      });
+      await this.getOperationsByPeriodOfTime();
     },
     async createUserOperation(data: UserOperation) {
       await api<UserOperation>(
