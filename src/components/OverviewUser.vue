@@ -16,7 +16,8 @@
     <div class="col-4">
       <div flat class="card">
         <p class="card__title">Balance</p>
-        <div class="overview__card-total">
+        <q-skeleton v-if="isLoading" type="rect" height="60px" />
+        <div v-else class="overview__card-total">
           {{ formatter.format(operationStore?.userOverview?.totalBalance!) }}
         </div>
       </div>
@@ -24,7 +25,8 @@
     <div class="col-4">
       <div flat class="card">
         <p class="card__title">Total income</p>
-        <div class="overview__card-total">
+        <q-skeleton v-if="isLoading" type="rect" height="60px" />
+        <div v-else class="overview__card-total">
           {{ formatter.format(operationStore?.userOverview?.totalIncome!) }}
         </div>
       </div>
@@ -32,7 +34,8 @@
     <div class="col-4">
       <div flat class="card">
         <p class="card__title">Total expenses</p>
-        <div class="overview__card-total">
+        <q-skeleton v-if="isLoading" type="rect" height="60px" />
+        <div v-else class="overview__card-total">
           {{ formatter.format(operationStore?.userOverview?.totalExpenses!) }}
         </div>
       </div>
@@ -80,6 +83,7 @@ import { useOperationStore } from 'src/stores/operation';
 import AppOperation from 'components/Operation/AppOperation.vue';
 import CategoryUserTotal from 'components/CategoryUser/CategoryUserTotal.vue';
 import { formatter } from 'boot/formatter';
+import { isLoading } from 'composables';
 
 const operationStore = useOperationStore();
 

@@ -38,7 +38,7 @@ export const useOperationStore = defineStore('operationStore', {
           method: 'get',
           url: 'operation/category/list/',
         },
-        true
+        false
       );
       this.categoryUser = data;
     },
@@ -89,7 +89,7 @@ export const useOperationStore = defineStore('operationStore', {
           url: 'operation/category/update/',
           data: data,
         },
-        false
+        true
       ).then((responce: CategoryUser) => {
         this.categoryUser?.map((i) =>
           i.id === responce.id
