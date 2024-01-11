@@ -29,7 +29,7 @@
                 {{ date.formatDate(day.date, 'D MMMM').toLowerCase() }}
               </p>
               <p v-if="day.operations.length > 1" class="text-grey">
-                {{ day.total }} ₽
+                {{ formatter.format(day.total) }}
               </p>
             </div>
             <template v-for="operation in day.operations" :key="operation.id">
@@ -43,10 +43,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, ref } from 'vue';
+import { onMounted, computed } from 'vue';
 import AppOperation from 'components/Operation/AppOperation.vue';
 import { date } from 'quasar';
 import { useOperationStore } from 'src/stores/operation';
+import { formatter } from 'boot/formatter';
 
 const operationStore = useOperationStore();
 const operations = computed(() => operationStore.operations);

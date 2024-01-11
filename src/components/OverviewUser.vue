@@ -17,8 +17,7 @@
       <div flat class="card">
         <p class="card__title">Balance</p>
         <div class="overview__card-total">
-          {{ operationStore?.userOverview?.totalBalance }}
-          <span class="sign-ruble--large">₽</span>
+          {{ formatter.format(operationStore?.userOverview?.totalBalance!) }}
         </div>
       </div>
     </div>
@@ -26,8 +25,7 @@
       <div flat class="card">
         <p class="card__title">Total income</p>
         <div class="overview__card-total">
-          {{ operationStore?.userOverview?.totalIncome }}
-          <span class="sign-ruble--large">₽</span>
+          {{ formatter.format(operationStore?.userOverview?.totalIncome!) }}
         </div>
       </div>
     </div>
@@ -35,8 +33,7 @@
       <div flat class="card">
         <p class="card__title">Total expenses</p>
         <div class="overview__card-total">
-          {{ operationStore?.userOverview?.totalExpenses }}
-          <span class="sign-ruble--large">₽</span>
+          {{ formatter.format(operationStore?.userOverview?.totalExpenses!) }}
         </div>
       </div>
     </div>
@@ -82,6 +79,7 @@ import { onMounted } from 'vue';
 import { useOperationStore } from 'src/stores/operation';
 import AppOperation from 'components/Operation/AppOperation.vue';
 import CategoryUserTotal from 'components/CategoryUser/CategoryUserTotal.vue';
+import { formatter } from 'boot/formatter';
 
 const operationStore = useOperationStore();
 
