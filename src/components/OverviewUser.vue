@@ -15,7 +15,7 @@
     </div>
     <div class="col-4">
       <div flat class="card">
-        <p class="card__title">Balance!</p>
+        <p class="card__title">Balance</p>
         <q-skeleton v-if="isLoading" type="rect" height="60px" />
         <div v-else class="overview__card-total">
           {{ formatter.format(operationStore?.userOverview?.totalBalance!) }}
