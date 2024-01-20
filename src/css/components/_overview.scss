@@ -11,3 +11,16 @@ body.body--dark {
     }
   }
 }
+
+@media (max-width: 700px) {
+  body {
+    .overview {
+      &__card {
+        &-total {
+          font-size: 17px !important;
+          padding: 3px 0 !important;
+        }
+      }
+    }
+  }
+}

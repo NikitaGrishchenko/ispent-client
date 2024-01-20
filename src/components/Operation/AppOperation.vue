@@ -1,11 +1,14 @@
 <template>
-  <div class="operation row items-center q-mb-sm">
+  <div
+    @click="openDialogUpdate = true"
+    class="operation row items-center q-mb-sm"
+  >
     <div class="col-7 flex items-center">
-      <div class="operation__category-icon q-mr-md">
+      <div class="q-mr-md">
         <q-icon
           :name="operation?.categoryUser?.icon"
           :style="{ color: operation?.categoryUser?.color }"
-          size="32px"
+          class="operation__category-icon"
         />
       </div>
       <div class="flex column">
@@ -17,7 +20,7 @@
         </p>
       </div>
     </div>
-    <div class="col-3 flex">
+    <div class="col-3 flex gt-xs">
       <AppInlineButton
         v-if="props.operation?.comment"
         icon="info"
@@ -26,7 +29,7 @@
       <AppInlineButton icon="delete_outline" @click="openDialogDelete = true" />
       <AppInlineButton icon="edit" @click="openDialogUpdate = true" />
     </div>
-    <div class="col-2 operation__amount text-right">
+    <div class="col-5 col-sm-2 operation__amount text-right">
       <p>
         <span
           v-html="getStyleAmountForOperation(operation?.amount!, operation?.kind!)"
@@ -37,6 +40,7 @@
   <DialogOperationUpdate
     :operation="props.operation"
     :is-open-dialog="openDialogUpdate"
+    @open-delete-dialog="openDialogDelete = true"
     @close-dialog="openDialogUpdate = false"
     @update="emit('update')"
   />

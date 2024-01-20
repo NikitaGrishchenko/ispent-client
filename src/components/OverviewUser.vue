@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-col-gutter-md">
+  <div class="row q-col-gutter-sm">
     <div class="col-12">
       <template
         v-for="banner in operationStore?.userOverview?.banners"
@@ -13,7 +13,7 @@
         </q-banner>
       </template>
     </div>
-    <div class="col-4">
+    <div class="col-12 col-md-4">
       <div flat class="card">
         <p class="card__title">Balance</p>
         <q-skeleton v-if="isLoading" type="rect" height="60px" />
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-6 col-md-4">
       <div flat class="card">
         <p class="card__title">Total income</p>
         <q-skeleton v-if="isLoading" type="rect" height="60px" />
@@ -31,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-6 col-md-4">
       <div flat class="card">
         <p class="card__title">Total expenses</p>
         <q-skeleton v-if="isLoading" type="rect" height="60px" />
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="col-7">
+    <div class="col-12 col-md-7">
       <div class="card">
         <p class="card__title q-mb-md">Last operation</p>
         <div v-if="operationStore?.userOverview?.lastOperations?.length! > 0">
@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-    <div class="col-5">
+    <div class="col-12 col-md-5">
       <div class="card">
         <p class="card__title q-mb-md">Total by categories</p>
         <div

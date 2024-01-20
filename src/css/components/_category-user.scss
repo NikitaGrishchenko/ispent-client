@@ -19,6 +19,30 @@ body.body--dark {
     &__total {
       padding: 7px 10px;
       border-radius: 2px;
+      &-icon {
+        font-size: 32px;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    &.body--dark {
+      .category-user {
+        &__line {
+          padding: 7px 10px;
+          &__date {
+            font-size: 12px;
+          }
+        }
+        &__total {
+          font-size: 14px;
+          &-icon {
+            font-size: 20px;
+          }
+        }
+      }
     }
   }
 }
