@@ -16,4 +16,4 @@ RUN set -ex && yarn
 
 COPY . .
 
-RUN yarn build
+RUN yarn quasar build -m pwa
