@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="showDialog" persistent>
-    <q-card style="min-width: 450px">
+    <q-card style="min-width: 350px">
       <q-card-section class="row items-center">
         <span class="q-ml-sm">Do you really want to log out?</span>
       </q-card-section>

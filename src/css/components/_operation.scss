@@ -11,6 +11,9 @@ body.body--dark {
       font-size: 0.75rem;
       color: $gray;
     }
+    &__category-icon {
+      font-size: 35px;
+    }
     &:hover {
       background-color: $dark-accent;
     }
@@ -20,6 +23,36 @@ body.body--dark {
       border-radius: 3px;
       &-title {
         padding: 10px 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    &.body--dark {
+      .operation {
+        padding: 7px;
+        &__date {
+          font-size: 12px;
+        }
+        &__amount {
+          font-size: 14px;
+        }
+        &__category-name {
+          font-size: 14px;
+        }
+        &__category-icon {
+          font-size: 20px;
+        }
+        &__day {
+          margin-bottom: 8px;
+          padding: 8px;
+          border-radius: 3px;
+          &-title {
+            padding: 10px 10px;
+          }
+        }
       }
     }
   }

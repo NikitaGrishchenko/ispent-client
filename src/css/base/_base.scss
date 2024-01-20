@@ -42,7 +42,7 @@ body {
 
 .container {
   width: 100%;
-  padding: 30px;
+  padding: 15px;
   margin-right: auto;
   margin-left: auto;
 }
@@ -50,6 +50,7 @@ body {
 @media (min-width: 768px) {
   .container {
     width: 100%;
+    padding: 25px;
   }
 }
 @media (min-width: 992px) {
@@ -96,6 +97,20 @@ body {
         font-size: 22px;
         padding-bottom: 5px;
         font-weight: 600;
+      }
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    &.body--dark {
+      & .card {
+        padding: 20px 15px;
+        border-radius: 10px;
+        &__title {
+          font-size: 17px;
+        }
       }
     }
   }

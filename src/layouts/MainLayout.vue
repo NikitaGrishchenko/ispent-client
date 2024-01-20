@@ -2,10 +2,18 @@
   <q-layout view="lHh LpR lFf">
     <q-header elevated>
       <q-toolbar>
+        <q-btn
+          class="lt-md"
+          flat
+          @click="isOpenDrawer = !isOpenDrawer"
+          round
+          dense
+          icon="menu"
+        />
         <q-toolbar-title>{{ $route.name }}</q-toolbar-title>
       </q-toolbar>
     </q-header>
-    <q-drawer class="border" bordered v-model="drawerLeft" side="left">
+    <q-drawer class="border" bordered v-model="isOpenDrawer" side="left">
       <h5 class="text-bold text-primary text-center q-my-md">ispent</h5>
       <q-list padding>
         <q-item
@@ -62,7 +70,7 @@ const operationStore = useOperationStore();
 
 const isOpenDialogExitConfirmation = ref<boolean>(false);
 const isOpenDialogCreateOperation = ref<boolean>(false);
-const drawerLeft = ref<boolean>(true);
+const isOpenDrawer = ref<boolean>(true);
 
 const drawerLinks = [
   { namePage: 'Overview', icon: 'home' },

@@ -68,17 +68,25 @@
           />
         </q-card-section>
 
-        <q-card-actions align="right" class="text-primary">
+        <q-card-actions class="text-primary flex justify-between items-center">
           <q-btn
             flat
-            label="Cancel"
-            v-close-popup
-            @click="
-              emit('close-dialog');
-              setDefaultValues();
-            "
+            icon="delete_outline"
+            color="negative"
+            @click="emit('open-delete-dialog')"
           />
-          <q-btn unelevated color="primary" label="Update" type="submit" />
+          <div>
+            <q-btn
+              flat
+              label="Cancel"
+              v-close-popup
+              @click="
+                emit('close-dialog');
+                setDefaultValues();
+              "
+            />
+            <q-btn unelevated color="primary" label="Update" type="submit" />
+          </div>
         </q-card-actions>
       </q-form>
     </q-card>
@@ -111,6 +119,7 @@ const filteringCategoryUser = ref<CategoryUser[]>();
 const emit = defineEmits<{
   (e: 'close-dialog'): void;
   (e: 'update'): void;
+  (e: 'open-delete-dialog'): void;
 }>();
 
 const categoryUser = ref<CategoryUser>();
