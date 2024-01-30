@@ -20,16 +20,7 @@
         </p>
       </div>
     </div>
-    <div class="col-3 flex gt-xs">
-      <AppInlineButton
-        v-if="props.operation?.comment"
-        icon="info"
-        :tooltip-text="props.operation?.comment"
-      />
-      <AppInlineButton icon="delete_outline" @click="openDialogDelete = true" />
-      <AppInlineButton icon="edit" @click="openDialogUpdate = true" />
-    </div>
-    <div class="col-5 col-sm-2 operation__amount text-right">
+    <div class="col-5 operation__amount text-right">
       <p>
         <span
           v-html="getStyleAmountForOperation(operation?.amount!, operation?.kind!)"
@@ -59,7 +50,6 @@ import { type PropType } from 'vue';
 import { date } from 'quasar';
 import DialogOperationUpdate from 'components/Operation/DialogOperationUpdate.vue';
 import DialogOperationDelete from 'components/Operation/DialogOperationDelete.vue';
-import AppInlineButton from 'components/AppInlineButton.vue';
 import { useOperation } from 'composables';
 
 const emit = defineEmits<{

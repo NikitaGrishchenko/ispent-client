@@ -1,17 +1,7 @@
 <template>
   <div class="row q-col-gutter-sm">
     <div class="col-12">
-      <template
-        v-for="banner in operationStore?.userOverview?.banners"
-        :key="banner.id"
-      >
-        <q-banner :class="getBannerColor(banner.color)">
-          <template v-slot:avatar>
-            <q-icon :name="banner.icon" color="white" />
-          </template>
-          {{ banner.text }}
-        </q-banner>
-      </template>
+      <BannerList :banners="operationStore?.userOverview?.banners" />
     </div>
     <div class="col-12 col-md-4">
       <div flat class="card">
@@ -81,15 +71,12 @@
 import { onMounted } from 'vue';
 import { useOperationStore } from 'src/stores/operation';
 import AppOperation from 'components/Operation/AppOperation.vue';
+import BannerList from 'components/BannerList.vue';
 import CategoryUserTotal from 'components/CategoryUser/CategoryUserTotal.vue';
 import { formatter } from 'boot/formatter';
 import { isLoading } from 'composables';
 
 const operationStore = useOperationStore();
-
-const getBannerColor = (color: string) => {
-  return `rounded-borders bg-${color}`;
-};
 
 onMounted(async () => {
   await operationStore.getUserOverview();
