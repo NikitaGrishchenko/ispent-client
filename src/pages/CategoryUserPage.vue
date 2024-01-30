@@ -80,21 +80,11 @@
       <div class="col-6">
         <div class="card q-mb-md">
           <p class="card__title">Expense categories</p>
-          <template v-for="category in expenseCategoryUser" :key="category.id">
-            <CategoryUserItem :category-user="category" />
-          </template>
-          <template v-if="expenseCategoryUser?.length == 0">
-            <div class="text-center q-my-md">Nothing added</div>
-          </template>
+          <CategoryUserList :categories-user="expenseCategoryUser" />
         </div>
         <div class="card">
           <p class="card__title">Income categories</p>
-          <template v-for="category in incomeCategoryUser" :key="category.id">
-            <CategoryUserItem :category-user="category" />
-          </template>
-          <template v-if="incomeCategoryUser?.length == 0">
-            <div class="text-center q-my-md">Nothing added</div>
-          </template>
+          <CategoryUserList :categories-user="incomeCategoryUser" />
         </div>
       </div>
     </div>
@@ -111,7 +101,7 @@
 import { ref, computed } from 'vue';
 import { CategoryUser } from 'models';
 import { useOperationStore } from 'src/stores/operation';
-import CategoryUserItem from 'components/CategoryUser/CategoryUserItem.vue';
+import CategoryUserList from 'components/CategoryUser/CategoryUserList.vue';
 import DialogChoiceIconCategory from 'components/Dialog/DialogChoiceIconCategory.vue';
 import { useAuthStore } from 'src/stores/auth';
 import { OPERATION_KIND } from 'enum';
