@@ -2,7 +2,7 @@
 
 ispent
 
-yarn icongenie generate -m pwa --icon ./ispent-logo.png
+yarn icongenie generate --skip-trim -m pwa,spa --icon ./ispent-logo.png
 
 ## Install the dependencies
 
