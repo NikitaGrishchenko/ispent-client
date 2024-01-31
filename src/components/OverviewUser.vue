@@ -4,31 +4,25 @@
       <BannerList :banners="operationStore?.userOverview?.banners" />
     </div>
     <div class="col-12 col-md-4">
-      <div flat class="card">
-        <p class="card__title">Balance</p>
-        <q-skeleton v-if="isLoading" type="rect" height="60px" />
-        <div v-else class="overview__card-total">
-          {{ formatter.format(operationStore?.userOverview?.totalBalance!) }}
-        </div>
-      </div>
+      <BalanceCard
+        :digit="operationStore?.userOverview?.totalBalance"
+        :is-loading="isLoading"
+        >Balance</BalanceCard
+      >
     </div>
-    <div class="col-6 col-md-4">
-      <div flat class="card">
-        <p class="card__title">Total income</p>
-        <q-skeleton v-if="isLoading" type="rect" height="60px" />
-        <div v-else class="overview__card-total">
-          {{ formatter.format(operationStore?.userOverview?.totalIncome!) }}
-        </div>
-      </div>
+    <div class="col-12 col-md-4">
+      <BalanceCard
+        :digit="operationStore?.userOverview?.totalIncome"
+        :is-loading="isLoading"
+        >Total income</BalanceCard
+      >
     </div>
-    <div class="col-6 col-md-4">
-      <div flat class="card">
-        <p class="card__title">Total expenses</p>
-        <q-skeleton v-if="isLoading" type="rect" height="60px" />
-        <div v-else class="overview__card-total">
-          {{ formatter.format(operationStore?.userOverview?.totalExpenses!) }}
-        </div>
-      </div>
+    <div class="col-12 col-md-4">
+      <BalanceCard
+        :digit="operationStore?.userOverview?.totalExpenses"
+        :is-loading="isLoading"
+        >Total expenses</BalanceCard
+      >
     </div>
     <div class="col-12 col-md-7">
       <div class="card">
@@ -56,7 +50,8 @@ import { useOperationStore } from 'src/stores/operation';
 import OperationList from 'components/Operation/OperationList.vue';
 import BannerList from 'components/BannerList.vue';
 import CategoryUserTotalList from 'components/CategoryUser/CategoryUserTotalList.vue';
-import { formatter } from 'boot/formatter';
+import BalanceCard from 'components/BalanceCard.vue';
+
 import { isLoading } from 'composables';
 
 const operationStore = useOperationStore();
