@@ -1,6 +1,6 @@
 <template>
   <q-dialog @show="filterCategoryUser(kind)" v-model="showDialog" persistent>
-    <q-card style="min-width: 350px">
+    <q-card class="card-dialog">
       <q-card-section>
         <div class="text-h6">New operation</div>
       </q-card-section>

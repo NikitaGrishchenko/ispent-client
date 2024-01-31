@@ -1,7 +1,7 @@
 <template>
   <q-page class="category-user container">
     <div class="row q-col-gutter-md">
-      <div class="col-6">
+      <div class="col-12 col-md-6">
         <div class="card">
           <p class="card__title">Create new category</p>
           <q-form ref="form" @submit="onSubmit">
@@ -77,7 +77,7 @@
           </q-form>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-12 col-md-6">
         <div class="card q-mb-md">
           <p class="card__title">Expense categories</p>
           <CategoryUserList :categories-user="expenseCategoryUser" />

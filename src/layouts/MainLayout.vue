@@ -39,6 +39,7 @@
     </q-drawer>
 
     <q-page-container>
+      {{}}
       <router-view />
       <DialogOperationCreate
         :is-open-dialog="isOpenDialogCreateOperation"
@@ -65,12 +66,15 @@ import { ref, onMounted } from 'vue';
 import DialogOperationCreate from 'components/Operation/DialogOperationCreate.vue';
 import DialogExitConfirmation from 'components/Dialog/DialogExitConfirmation.vue';
 import { useOperationStore } from 'src/stores/operation';
+import { useQuasar } from 'quasar';
+
+const $q = useQuasar();
 
 const operationStore = useOperationStore();
 
 const isOpenDialogExitConfirmation = ref<boolean>(false);
 const isOpenDialogCreateOperation = ref<boolean>(false);
-const isOpenDrawer = ref<boolean>(true);
+const isOpenDrawer = ref<boolean>($q.screen.lt.md ? false : true);
 
 const drawerLinks = [
   { namePage: 'Overview', icon: 'home' },

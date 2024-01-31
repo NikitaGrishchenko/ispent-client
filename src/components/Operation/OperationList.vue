@@ -3,6 +3,9 @@
     <template v-for="operation in props.operations" :key="operation.id">
       <OperationItem :operation="operation" />
     </template>
+    <div class="row" v-if="props.operations?.length == 0">
+      <p class="col text-center q-pb-md">Nothing added</p>
+    </div>
   </div>
 </template>
 
