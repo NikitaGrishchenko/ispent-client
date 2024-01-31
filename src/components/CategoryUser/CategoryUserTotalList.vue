@@ -3,6 +3,9 @@
     <template v-for="category in props.totalByCategories" :key="category.id">
       <CategoryUserTotalItem :total-by-category="category" />
     </template>
+    <div class="row" v-if="props.totalByCategories?.length == 0">
+      <p class="col text-center q-pb-md">Nothing added</p>
+    </div>
   </div>
 </template>
 

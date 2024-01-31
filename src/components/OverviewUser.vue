@@ -33,33 +33,18 @@
     <div class="col-12 col-md-7">
       <div class="card">
         <p class="card__title q-mb-md">Last operation</p>
-        <template
-          v-if="operationStore?.userOverview?.lastOperations?.length! > 0"
-        >
-          <OperationList
-            :operations="operationStore?.userOverview?.lastOperations"
-          />
-        </template>
-        <div class="row" v-else>
-          <p class="col text-center q-pb-md">Nothing added</p>
-        </div>
+        <OperationList
+          :operations="operationStore?.userOverview?.lastOperations"
+        />
       </div>
     </div>
     <div class="col-12 col-md-5">
       <div class="card">
         <p class="card__title q-mb-md">Total by categories</p>
-        <template
-          v-if="operationStore?.userOverview?.totalByCategories?.length! > 0"
-        >
-          <CategoryUserTotalList
-            :total-by-categories="
-              operationStore?.userOverview?.totalByCategories
-            "
-          />
-        </template>
-        <div class="row" v-else>
-          <p class="col text-center q-pb-md">Nothing added</p>
-        </div>
+
+        <CategoryUserTotalList
+          :total-by-categories="operationStore?.userOverview?.totalByCategories"
+        />
       </div>
     </div>
   </div>
