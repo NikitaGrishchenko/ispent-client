@@ -1,5 +1,5 @@
 <template>
-  <q-page class="container">
+  <q-page class="container operation-page">
     <div class="row">
       <div class="col-12 q-pb-md flex justify-between items-center">
         <q-btn
@@ -8,7 +8,9 @@
           icon="chevron_left"
           >prev</q-btn
         >
-        <h5>{{ operationStore.currentMonth.toFormat('MMMM yyyy') }}</h5>
+        <h5 class="operation-page__title">
+          {{ operationStore.currentMonth.toFormat('MMMM yyyy') }}
+        </h5>
         <q-btn
           flat
           @click="operationStore.changeCurrentMonth(1)"
