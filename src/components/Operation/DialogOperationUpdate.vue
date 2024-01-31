@@ -64,6 +64,7 @@
             filled
             v-model="comment"
             label="Comment"
+            autogrow
             class="q-field--with-bottom"
           />
         </q-card-section>

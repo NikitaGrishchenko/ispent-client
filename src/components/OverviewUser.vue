@@ -1,17 +1,7 @@
 <template>
   <div class="row q-col-gutter-sm">
     <div class="col-12">
-      <template
-        v-for="banner in operationStore?.userOverview?.banners"
-        :key="banner.id"
-      >
-        <q-banner :class="getBannerColor(banner.color)">
-          <template v-slot:avatar>
-            <q-icon :name="banner.icon" color="white" />
-          </template>
-          {{ banner.text }}
-        </q-banner>
-      </template>
+      <BannerList :banners="operationStore?.userOverview?.banners" />
     </div>
     <div class="col-12 col-md-4">
       <div flat class="card">
@@ -43,14 +33,13 @@
     <div class="col-12 col-md-7">
       <div class="card">
         <p class="card__title q-mb-md">Last operation</p>
-        <div v-if="operationStore?.userOverview?.lastOperations?.length! > 0">
-          <template
-            v-for="operation in operationStore?.userOverview?.lastOperations"
-            :key="operation.id"
-          >
-            <AppOperation :operation="operation" />
-          </template>
-        </div>
+        <template
+          v-if="operationStore?.userOverview?.lastOperations?.length! > 0"
+        >
+          <OperationList
+            :operations="operationStore?.userOverview?.lastOperations"
+          />
+        </template>
         <div class="row" v-else>
           <p class="col text-center q-pb-md">Nothing added</p>
         </div>
@@ -59,16 +48,15 @@
     <div class="col-12 col-md-5">
       <div class="card">
         <p class="card__title q-mb-md">Total by categories</p>
-        <div
+        <template
           v-if="operationStore?.userOverview?.totalByCategories?.length! > 0"
         >
-          <template
-            v-for="category in operationStore?.userOverview?.totalByCategories"
-            :key="category.id"
-          >
-            <CategoryUserTotal :total-by-categories="category" />
-          </template>
-        </div>
+          <CategoryUserTotalList
+            :total-by-categories="
+              operationStore?.userOverview?.totalByCategories
+            "
+          />
+        </template>
         <div class="row" v-else>
           <p class="col text-center q-pb-md">Nothing added</p>
         </div>
@@ -80,16 +68,13 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useOperationStore } from 'src/stores/operation';
-import AppOperation from 'components/Operation/AppOperation.vue';
-import CategoryUserTotal from 'components/CategoryUser/CategoryUserTotal.vue';
+import OperationList from 'components/Operation/OperationList.vue';
+import BannerList from 'components/BannerList.vue';
+import CategoryUserTotalList from 'components/CategoryUser/CategoryUserTotalList.vue';
 import { formatter } from 'boot/formatter';
 import { isLoading } from 'composables';
 
 const operationStore = useOperationStore();
-
-const getBannerColor = (color: string) => {
-  return `rounded-borders bg-${color}`;
-};
 
 onMounted(async () => {
   await operationStore.getUserOverview();

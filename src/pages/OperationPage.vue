@@ -33,7 +33,7 @@
               </p>
             </div>
             <template v-for="operation in day.operations" :key="operation.id">
-              <AppOperation :operation="operation" :hide-date="true" />
+              <OperationItem :operation="operation" :hide-date="true" />
             </template>
           </div>
         </div>
@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import { onMounted, computed } from 'vue';
-import AppOperation from 'components/Operation/AppOperation.vue';
+import OperationItem from 'components/Operation/OperationItem.vue';
 import { date } from 'quasar';
 import { useOperationStore } from 'src/stores/operation';
 import { formatter } from 'boot/formatter';
