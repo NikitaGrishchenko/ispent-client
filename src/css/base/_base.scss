@@ -88,6 +88,9 @@ body {
 }
 
 body {
+  .card-dialog {
+    min-width: 450px;
+  }
   &.body--dark {
     & .card {
       background: $dark;
@@ -103,6 +106,9 @@ body {
 }
 
 @media (max-width: 700px) {
+  .card-dialog {
+    min-width: 95% !important;
+  }
   body {
     &.body--dark {
       & .card {

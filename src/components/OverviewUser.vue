@@ -10,14 +10,14 @@
         >Balance</BalanceCard
       >
     </div>
-    <div class="col-12 col-md-4">
+    <div class="col-6 col-md-4">
       <BalanceCard
         :digit="operationStore?.userOverview?.totalIncome"
         :is-loading="isLoading"
         >Total income</BalanceCard
       >
     </div>
-    <div class="col-12 col-md-4">
+    <div class="col-6 col-md-4">
       <BalanceCard
         :digit="operationStore?.userOverview?.totalExpenses"
         :is-loading="isLoading"
