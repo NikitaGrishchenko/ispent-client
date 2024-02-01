@@ -84,6 +84,12 @@ body {
   padding: 16px;
 }
 
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .sign-ruble {
   &--large {
     font-size: 22px;
