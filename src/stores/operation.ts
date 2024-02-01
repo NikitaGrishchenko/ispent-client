@@ -50,13 +50,14 @@ export const useOperationStore = defineStore('operationStore', {
           url: 'operation/category/create/',
           data: data,
         },
-        true
+        false
       ).then((responce: CategoryUser) => {
         Notify.create({
-          message: 'The category has been created',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
         this.categoryUser?.unshift(responce);
       });
@@ -75,10 +76,11 @@ export const useOperationStore = defineStore('operationStore', {
           .indexOf(responce.id);
         this.categoryUser?.splice(indexDeletedItem!, 1);
         Notify.create({
-          message: 'The category user has been deleted',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },
@@ -89,7 +91,7 @@ export const useOperationStore = defineStore('operationStore', {
           url: 'operation/category/update/',
           data: data,
         },
-        true
+        false
       ).then((responce: CategoryUser) => {
         this.categoryUser?.map((i) =>
           i.id === responce.id
@@ -100,10 +102,11 @@ export const useOperationStore = defineStore('operationStore', {
             : i
         );
         Notify.create({
-          message: 'The category user has been updated',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },
@@ -147,10 +150,11 @@ export const useOperationStore = defineStore('operationStore', {
       ).then(async () => {
         this.updateDataStore();
         Notify.create({
-          message: 'The operation has been created',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },
@@ -165,10 +169,11 @@ export const useOperationStore = defineStore('operationStore', {
       ).then(async () => {
         this.updateDataStore();
         Notify.create({
-          message: 'The operation has been updated',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },
@@ -182,10 +187,11 @@ export const useOperationStore = defineStore('operationStore', {
       ).then(async () => {
         this.updateDataStore();
         Notify.create({
-          message: 'The operation has been deleted',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },

@@ -15,6 +15,7 @@
             :options="OPERATION_KIND"
           />
           <q-input
+            v-focus
             filled
             v-model="amount"
             lazy-rules
@@ -91,6 +92,7 @@ import { useAuthStore } from 'src/stores/auth';
 import { useData } from 'composables';
 import { CategoryUser, UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
+import vFocus from 'src/directives/vFocus';
 import { OPERATION_KIND } from 'enum';
 import { DateTime } from 'luxon';
 

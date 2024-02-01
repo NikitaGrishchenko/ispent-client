@@ -17,6 +17,9 @@
             ],
             "enum": [
                 "./src/enum/index.ts"
+            ],
+            "directives": [
+                "./src/directives/*"
             ]
         }
     }
