@@ -18,6 +18,8 @@
             filled
             v-model="amount"
             label="Amount"
+            type="number"
+            step=".01"
             lazy-rules
             :rules="[(val) => (val && val >= 0) || 'Please type something']"
           />
