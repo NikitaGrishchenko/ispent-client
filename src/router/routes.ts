@@ -1,9 +1,10 @@
+import { WSAEWOULDBLOCK } from 'constants';
 import { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    meta: { middleware: ['auth'] },
+    meta: { middleware: ['auth'], name: 'Overview' },
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
@@ -15,7 +16,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/login',
-    meta: { middleware: ['login'] },
+    meta: { middleware: ['login'], name: 'Login' },
     component: () => import('layouts/EmptyLayout.vue'),
     children: [
       {
@@ -27,7 +28,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/registration',
-    meta: { middleware: ['login'] },
+    meta: { middleware: ['login'], name: 'Registration' },
     component: () => import('layouts/EmptyLayout.vue'),
     children: [
       {
@@ -39,7 +40,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/categories',
-    meta: { middleware: ['auth'] },
+    meta: { middleware: ['auth'], name: 'Categories' },
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
@@ -51,7 +52,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/operation',
-    meta: { middleware: ['auth'] },
+    meta: { middleware: ['auth'], name: 'Operations' },
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
@@ -63,7 +64,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/confirm',
-    meta: { middleware: ['auth'] },
+    meta: { middleware: ['auth'], name: 'Confirm email' },
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {

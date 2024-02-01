@@ -29,7 +29,7 @@ export function useApi() {
   ): Promise<T> => {
     return new Promise(async (resolve, reject) => {
       isLoading.value = true;
-      if (showIndicator) LoadingBar.start();
+      if (showIndicator === true) LoadingBar.start();
       try {
         const response = await apiAxios(options);
         resolve(<T>response.data);
@@ -52,7 +52,7 @@ export function useApi() {
         }
       } finally {
         isLoading.value = false;
-        if (showIndicator) LoadingBar.stop();
+        if (showIndicator === true) LoadingBar.stop();
       }
     });
   };

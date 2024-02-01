@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('authStore', {
           method: 'post',
           url: 'auth/logout',
         },
-        true
+        false
       )
         .then(() => {
           this.clear();
