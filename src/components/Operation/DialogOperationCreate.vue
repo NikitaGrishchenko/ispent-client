@@ -15,9 +15,12 @@
             :options="OPERATION_KIND"
           />
           <q-input
+            style=""
             v-focus
             filled
             v-model="amount"
+            type="number"
+            step=".01"
             lazy-rules
             label="Amount"
             :rules="[(val) => (val && val >= 0) || 'Please type something']"
