@@ -2,9 +2,9 @@
   <q-dialog v-model="showDialog" persistent>
     <q-card>
       <q-card-section class="row items-center">
-        <span class="q-ml-sm"
-          >Are you sure you want to delete this operation?</span
-        >
+        <span class="q-ml-sm">
+          Are you sure you want to delete this operation?
+        </span>
       </q-card-section>
 
       <q-card-actions align="right">
