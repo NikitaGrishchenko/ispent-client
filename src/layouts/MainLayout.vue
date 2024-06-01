@@ -10,11 +10,13 @@
           dense
           icon="menu"
         />
-        <q-toolbar-title>{{ $route.name }}</q-toolbar-title>
+        <q-toolbar-title>{{ $route.meta.name }}</q-toolbar-title>
       </q-toolbar>
     </q-header>
     <q-drawer class="border" bordered v-model="isOpenDrawer" side="left">
-      <h5 class="text-bold text-primary text-center q-my-md">ispent</h5>
+      <router-link :to="{ name: 'Overview' }">
+        <h5 class="text-bold text-primary text-center q-my-md">ispent</h5>
+      </router-link>
       <q-list padding>
         <q-item
           v-for="item in drawerLinks"

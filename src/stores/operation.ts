@@ -50,13 +50,14 @@ export const useOperationStore = defineStore('operationStore', {
           url: 'operation/category/create/',
           data: data,
         },
-        true
+        false
       ).then((responce: CategoryUser) => {
         Notify.create({
           message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
         this.categoryUser?.unshift(responce);
       });
@@ -79,6 +80,7 @@ export const useOperationStore = defineStore('operationStore', {
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },
@@ -89,7 +91,7 @@ export const useOperationStore = defineStore('operationStore', {
           url: 'operation/category/update/',
           data: data,
         },
-        true
+        false
       ).then((responce: CategoryUser) => {
         this.categoryUser?.map((i) =>
           i.id === responce.id
@@ -104,6 +106,7 @@ export const useOperationStore = defineStore('operationStore', {
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },
@@ -151,6 +154,7 @@ export const useOperationStore = defineStore('operationStore', {
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },
@@ -169,6 +173,7 @@ export const useOperationStore = defineStore('operationStore', {
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },
@@ -186,6 +191,7 @@ export const useOperationStore = defineStore('operationStore', {
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
+          timeout: 2000,
         });
       });
     },

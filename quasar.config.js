@@ -53,6 +53,7 @@ module.exports = configure(function (/* ctx */) {
         composables: path.join(__dirname, './src/composables/index.ts'),
         images: path.join(__dirname, './src/assets/images'),
         enum: path.join(__dirname, './src/enum/index.ts'),
+        directives: path.join(__dirname, './src/enum/directives'),
       },
 
       // vueRouterBase,
@@ -91,6 +92,7 @@ module.exports = configure(function (/* ctx */) {
         loadingBar: {
           color: 'primary',
           size: '3px',
+          skipHijack: true,
         },
       },
 

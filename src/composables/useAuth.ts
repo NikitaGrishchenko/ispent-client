@@ -25,7 +25,7 @@ export function useAuth() {
         url: 'auth/register',
         data: data,
       },
-      true
+      false
     ).then(() => {
       router.push({ name: 'Login' });
       Notify.create({

@@ -18,6 +18,8 @@
             filled
             v-model="amount"
             label="Amount"
+            type="number"
+            step=".01"
             lazy-rules
             :rules="[(val) => (val && val >= 0) || 'Please type something']"
           />
@@ -64,12 +66,12 @@
 
         <q-card-actions class="text-primary flex justify-between items-center">
           <q-btn
-            flat
+            unelevated
             icon="delete_outline"
             color="negative"
             @click="emit('open-delete-dialog')"
           />
-          <div>
+          <div class="q-gutter-sm">
             <q-btn
               flat
               label="Cancel"

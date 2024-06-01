@@ -18,8 +18,12 @@
             :options="OPERATION_KIND"
           />
           <q-input
+            style=""
+            v-focus
             filled
             v-model="amount"
+            type="number"
+            step=".01"
             lazy-rules
             label="Amount"
             :rules="[(val) => (val && val >= 0) || 'Please type something']"
@@ -87,6 +91,7 @@ import { useAuthStore } from 'src/stores/auth';
 import { useData } from 'composables';
 import { UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
+import vFocus from 'src/directives/vFocus';
 import { OPERATION_KIND } from 'enum';
 import { DateTime } from 'luxon';
 import CategoryUserPick from 'components/CategoryUser/CategoryUserPick.vue';
