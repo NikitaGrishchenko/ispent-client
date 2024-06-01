@@ -53,7 +53,7 @@ export const useOperationStore = defineStore('operationStore', {
         true
       ).then((responce: CategoryUser) => {
         Notify.create({
-          message: 'The category has been created',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
@@ -75,7 +75,7 @@ export const useOperationStore = defineStore('operationStore', {
           .indexOf(responce.id);
         this.categoryUser?.splice(indexDeletedItem!, 1);
         Notify.create({
-          message: 'The category user has been deleted',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
@@ -100,7 +100,7 @@ export const useOperationStore = defineStore('operationStore', {
             : i
         );
         Notify.create({
-          message: 'The category user has been updated',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
@@ -147,7 +147,7 @@ export const useOperationStore = defineStore('operationStore', {
       ).then(async () => {
         this.updateDataStore();
         Notify.create({
-          message: 'The operation has been created',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
@@ -165,7 +165,7 @@ export const useOperationStore = defineStore('operationStore', {
       ).then(async () => {
         this.updateDataStore();
         Notify.create({
-          message: 'The operation has been updated',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',
@@ -182,7 +182,7 @@ export const useOperationStore = defineStore('operationStore', {
       ).then(async () => {
         this.updateDataStore();
         Notify.create({
-          message: 'The operation has been deleted',
+          message: 'Successfully',
           color: 'positive',
           position: 'top-right',
           icon: 'check_circle_outline',

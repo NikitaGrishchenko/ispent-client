@@ -29,7 +29,7 @@ export function useAuth() {
     ).then(() => {
       router.push({ name: 'Login' });
       Notify.create({
-        message: 'The user has been successfully registered!',
+        message: 'Successfully!',
         color: 'positive',
         position: 'top-right',
         icon: 'check_circle_outline',

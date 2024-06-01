@@ -1,5 +1,5 @@
 <template>
-  <q-dialog @show="filterCategoryUser(kind!)" v-model="showDialog" persistent>
+  <q-dialog v-model="showDialog" persistent>
     <q-card class="card-dialog">
       <q-card-section>
         <div class="text-h6">Update operation</div>
@@ -21,16 +21,9 @@
             lazy-rules
             :rules="[(val) => (val && val >= 0) || 'Please type something']"
           />
-          <q-select
+          <CategoryUserPick
             v-model="categoryUser"
-            :options="filteringCategoryUser"
-            option-label="name"
-            label="Category"
-            filled
-            lazy-rules
-            input-debounce="0"
-            class="q-field--with-bottom"
-            :rules="[(val) => val || 'Please select a category']"
+            :kind="kind"
           />
           <q-input
             filled
@@ -95,14 +88,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useData } from 'composables';
-import { CategoryUser, UserOperation } from 'models';
+import { UserOperation } from 'models';
 import { type PropType } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useOperationStore } from 'src/stores/operation';
 import { OPERATION_KIND } from 'enum';
 import { DateTime } from 'luxon';
+import CategoryUserPick from 'components/CategoryUser/CategoryUserPick.vue';
 
 const authStore = useAuthStore();
 const { optionsDateCalendar, fromISOToCalendarFormat } = useData();
@@ -115,15 +109,13 @@ const props = defineProps({
 
 const form = ref<HTMLFormElement>();
 
-const filteringCategoryUser = ref<CategoryUser[]>();
-
 const emit = defineEmits<{
   (e: 'close-dialog'): void;
   (e: 'update'): void;
   (e: 'open-delete-dialog'): void;
 }>();
 
-const categoryUser = ref<CategoryUser>();
+const categoryUser = ref<number>();
 const kind = ref<number>();
 const amount = ref<number>();
 const comment = ref<string>('');
@@ -133,7 +125,7 @@ const showDialog = computed(() => props.isOpenDialog);
 
 const setDefaultValues = () => {
   if (props.operation) {
-    categoryUser.value = props.operation?.categoryUser;
+    categoryUser.value = props.operation?.categoryUser?.id;
     kind.value = props.operation?.kind;
     amount.value = props.operation?.amount;
     comment.value = props.operation?.comment;
@@ -147,7 +139,7 @@ const onSubmit = async () => {
       const data: UserOperation = {
         id: props.operation?.id,
         userId: authStore.idUser as number,
-        categoryUserId: categoryUser.value?.id as number,
+        categoryUserId: categoryUser.value!,
         amount: amount.value as number,
         kind: Number(kind.value),
         comment: comment.value,
@@ -163,18 +155,8 @@ const onSubmit = async () => {
   });
 };
 
-const filterCategoryUser = (newValue: number) => {
-  filteringCategoryUser.value = operationStore.categoryUser?.filter(
-    (c) => c.kind === newValue
-  );
-};
-
-watch(kind, (newValue) => {
-  filterCategoryUser(Number(newValue));
-});
 
 onMounted(async () => {
   setDefaultValues();
-  if (props.operation?.kind) filterCategoryUser(props?.operation?.kind);
 });
 </script>

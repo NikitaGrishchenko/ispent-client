@@ -36,13 +36,11 @@ export function useApi() {
       } catch (error: unknown) {
         if (isAxiosError(error)) {
           Notify.create({
-            message: `<span style="font-size: 12px;">Status error: ${
-              error.response?.status
-            }</span> <br/> <strong>${
-              error.response?.data && error.response?.data?.detail
+            message: `<span style="font-size: 12px;">Status error: ${error.response?.status
+              }</span> <br/> <strong>${error.response?.data && error.response?.data?.detail
                 ? error.response?.data?.detail
                 : 'ee'
-            }</strong>`,
+              }</strong>`,
             color: 'negative',
             position: 'top-right',
             html: true,

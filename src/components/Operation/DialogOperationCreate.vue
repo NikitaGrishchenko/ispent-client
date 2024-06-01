@@ -1,5 +1,8 @@
 <template>
-  <q-dialog @show="filterCategoryUser(kind)" v-model="showDialog" persistent>
+  <q-dialog
+    v-model="showDialog"
+    class="dialog-operation-create"
+  >
     <q-card class="card-dialog">
       <q-card-section>
         <div class="text-h6">New operation</div>
@@ -21,16 +24,9 @@
             label="Amount"
             :rules="[(val) => (val && val >= 0) || 'Please type something']"
           />
-          <q-select
+          <CategoryUserPick
             v-model="selectedCategory"
-            :options="filteringCategoryUser"
-            :disable="!kind"
-            option-label="name"
-            lazy-rules
-            label="Category"
-            filled
-            :rules="[(val) => val || 'Please select a category']"
-            input-debounce="0"
+            :kind="kind"
           />
           <q-input
             filled
@@ -86,13 +82,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { useAuthStore } from 'src/stores/auth';
 import { useData } from 'composables';
-import { CategoryUser, UserOperation } from 'models';
+import { UserOperation } from 'models';
 import { useOperationStore } from 'src/stores/operation';
 import { OPERATION_KIND } from 'enum';
 import { DateTime } from 'luxon';
+import CategoryUserPick from 'components/CategoryUser/CategoryUserPick.vue';
+import { Notify } from 'quasar';
 
 const authStore = useAuthStore();
 const operationStore = useOperationStore();
@@ -109,10 +107,9 @@ const emit = defineEmits<{
 
 const form = ref<HTMLFormElement>();
 
-const filteringCategoryUser = ref<CategoryUser[]>();
 
-const selectedCategory = ref<CategoryUser>();
 
+const selectedCategory = ref();
 const kind = ref<number>(2);
 const amount = ref<number>();
 const comment = ref<string>('');
@@ -127,11 +124,19 @@ const clearInput = () => {
 };
 
 const onSubmit = async () => {
+  if (!selectedCategory.value) {
+    return Notify.create({
+      message: 'Select a category',
+      color: 'negative',
+      position: 'top',
+      icon: 'error',
+    });
+  }
   form?.value?.validate().then(async (success: boolean) => {
     if (success) {
       const data: UserOperation = {
         userId: authStore.idUser as number,
-        categoryUserId: selectedCategory.value?.id as number,
+        categoryUserId: selectedCategory.value as number,
         amount: amount.value as number,
         kind: kind.value,
         date: `${DateTime.fromFormat(date.value, 'dd.LL.yyyy', {
@@ -150,14 +155,4 @@ const onSubmit = async () => {
 };
 
 const showDialog = computed(() => props.isOpenDialog);
-
-const filterCategoryUser = (kind: number) => {
-  filteringCategoryUser.value = operationStore.categoryUser?.filter(
-    (c) => c.kind === Number(kind)
-  );
-};
-
-watch(kind, (newValue) => {
-  filterCategoryUser(newValue);
-});
 </script>

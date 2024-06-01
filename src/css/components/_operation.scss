@@ -16,6 +16,7 @@ body.body--dark {
     }
     &:hover {
       background-color: $dark-accent;
+      cursor: pointer;
     }
     &__day {
       margin-bottom: 8px;
