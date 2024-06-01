@@ -54,10 +54,14 @@
       />
       <q-page-sticky
         position="bottom-right"
-        :offset="[18, 18]"
+        :offset="[20, 20]"
         @click="isOpenDialogCreateOperation = true"
       >
-        <q-btn fab icon="add" color="primary" />
+        <q-btn
+          fab
+          icon="add"
+          color="primary"
+        />
       </q-page-sticky>
     </q-page-container>
   </q-layout>
